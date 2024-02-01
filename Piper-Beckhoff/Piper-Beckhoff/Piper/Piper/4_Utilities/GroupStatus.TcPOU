@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="GroupStatus" Id="{64a0f666-997c-47bb-a11d-deccd3a678a8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GroupStatus
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	_Busy : BOOL;
+	_Error : BOOL;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Busy" Id="{fe61334e-f225-49f0-8a17-ff1b39f4d264}">
+      <Declaration><![CDATA[METHOD Busy
+VAR_INPUT
+	Message : STRING[80];
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Busy := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Error" Id="{a774ec91-6e7f-4e7e-9619-0d714616bbff}">
+      <Declaration><![CDATA[METHOD Error
+VAR_INPUT
+	Message : STRING[80];
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Error := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="isBusy" Id="{8b172ddf-04e9-4236-806d-134b8ae3c542}">
+      <Declaration><![CDATA[PROPERTY isBusy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{55a7db60-84c5-4687-ab04-0cf56c15f341}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[isBusy := NOT _Error AND _Busy;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="isDone" Id="{c0071902-5599-4ac5-a0b2-7e49d560bd64}">
+      <Declaration><![CDATA[PROPERTY isDone : BOOL]]></Declaration>
+      <Get Name="Get" Id="{dcf7e083-dee0-44d7-b7f1-f038315678db}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[isDone := NOT _Error AND NOT _Busy;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="isError" Id="{e4413f7f-b554-4b5c-8287-095be611bfa9}">
+      <Declaration><![CDATA[PROPERTY isError : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0593bd48-e708-4565-9399-9aa14aee0b35}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[isError := _Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Ok" Id="{1be299bc-a77b-4303-b016-e012e735be40}">
+      <Declaration><![CDATA[METHOD Ok : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{77e19edc-3ebc-48b1-879e-51ee30f840ea}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Busy := FALSE;
+_Error := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="status" Id="{34f306bb-0f78-474b-ae87-31c2cd249735}">
+      <Declaration><![CDATA[PROPERTY status : PLCOpenStatusBase]]></Declaration>
+      <Get Name="Get" Id="{1ccbce53-2a69-4d36-bbbc-ebe695682689}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF _Error THEN
+	
+status := PLCOpenStatusBase.ERROR;
+
+ELSIF _Busy THEN
+
+status := PLCOpenStatusBase.BUSY;
+
+ELSE
+
+status := PLCOpenStatusBase.ERR_OK;
+	
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
