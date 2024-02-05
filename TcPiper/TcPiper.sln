@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # TcXaeShell Solution File, Format Version 11.00
 VisualStudioVersion = 15.0.33403.129
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "Piper-Beckhoff", "Piper-Beckhoff\Piper-Beckhoff.tsproj", "{E4EA2D08-1501-42DC-8295-06F6A3A857D3}"
+Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "TcPiper", "TcPiper.tsproj", "{E4EA2D08-1501-42DC-8295-06F6A3A857D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +54,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2F722F21-8CB4-46B2-9D84-50811272BAD8}
+		SolutionGuid = {15B9EB2A-2E80-4DA6-BF15-52976AD3B6CE}
 	EndGlobalSection
 EndGlobal

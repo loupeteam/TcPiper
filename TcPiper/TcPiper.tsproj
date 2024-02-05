@@ -9,7 +9,7 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project File="Piper.xti"/>
+			<Project File="TcPiper.xti"/>
 		</Plc>
 	</Project>
 </TcSmProject>
