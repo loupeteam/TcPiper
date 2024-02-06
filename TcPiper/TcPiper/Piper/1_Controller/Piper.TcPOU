@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Piper" Id="{66941a2f-a2d2-47a0-af96-5aaa6b0f29a0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Piper
+VAR_INPUT
+	command : PiperCommand;	
+END_VAR
+VAR_OUTPUT
+	PackMLState : MACHINE_STATE;	
+END_VAR
+VAR
+	_Substate : ULINT;
+	Submodules : PiperSubmoduleCollection;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[UpdateSystemState();
+HandleBoolCommands();
+CallCurrentState();
+]]></ST>
+    </Implementation>
+    <Method Name="CallCurrentState" Id="{cc5efec1-ab06-458e-a637-15755ce9d2d9}">
+      <Declaration><![CDATA[METHOD CallCurrentState : MACHINE_STATE
+VAR_INPUT
+END_VAR
+VAR
+	i: INT;
+	currentModule : IPiperModule;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i:=0 TO Submodules.countSubmodules - 1 DO
+
+	currentModule := Submodules.submodules[i];
+	currentModule.CallStateAsync();
+	
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HandleBoolCommands" Id="{3aaa83e1-d57e-4566-85ce-b8dc92486e3a}">
+      <Declaration><![CDATA[METHOD HandleBoolCommands : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Standard state transitions
+CASE PackMLState OF
+	MACHINE_STATE.ABORTED:
+		IF command.Clear THEN
+			SetState(MACHINE_STATE.CLEARING);
+		END_IF
+
+	MACHINE_STATE.STOPPED:
+		IF command.Reset THEN
+			SetState(MACHINE_STATE.RESETTING);
+		END_IF
+		
+	MACHINE_STATE.COMPLETE:
+		IF command.Reset THEN
+			SetState(MACHINE_STATE.RESETTING);
+		END_IF
+
+	MACHINE_STATE.IDLE:
+		IF command.Start THEN
+			SetState(MACHINE_STATE.STARTING);
+		END_IF
+	
+	MACHINE_STATE.HELD:
+		IF command.Unhold THEN
+			SetState(MACHINE_STATE.UNHOLDING);
+		END_IF
+
+	MACHINE_STATE.SUSPENDED:
+		IF command.Unsuspend THEN
+			SetState(MACHINE_STATE.UNSUSPENDING);
+		END_IF
+
+END_CASE
+
+//Stop state transitions
+//Can happen in all states except stop/ing and abort/ing 
+CASE PackMLState OF
+	MACHINE_STATE.STOPPED,
+	MACHINE_STATE.STOPPING,
+	MACHINE_STATE.ABORTED,
+	MACHINE_STATE.ABORTING:
+		;
+	ELSE
+		IF command.Stop THEN
+			SetState(MACHINE_STATE.STOPPING);
+		END_IF
+END_CASE
+
+//Abort state transitions
+//Can happen in all states except abort/ing 
+CASE PackMLState OF
+	MACHINE_STATE.ABORTED,
+	MACHINE_STATE.ABORTING:
+		;
+	ELSE
+		IF command.Abort THEN
+			SetState(MACHINE_STATE.ABORTING);
+		END_IF
+END_CASE
+
+command.Abort := FALSE;
+command.Clear := FALSE;
+command.Hold := FALSE;
+command.Reset := FALSE;
+command.Start := FALSE;
+command.Stop := FALSE;
+command.Suspend := FALSE;
+command.Unhold := FALSE;
+command.Unsuspend := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="nextState" Id="{44f22c80-0b1e-4773-b71a-0eccca67bba2}">
+      <Declaration><![CDATA[METHOD nextState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE PackMLState OF
+	MACHINE_STATE.ABORTING:
+		SetState(MACHINE_STATE.ABORTED);
+
+	MACHINE_STATE.BOOTING:
+		SetState(MACHINE_STATE.STOPPED);
+
+	MACHINE_STATE.CLEARING:
+		SetState(MACHINE_STATE.STOPPED);
+
+	MACHINE_STATE.COMPLETING :
+		SetState(MACHINE_STATE.COMPLETE);
+
+	MACHINE_STATE.EXECUTING:
+		SetState(MACHINE_STATE.COMPLETE);
+
+	MACHINE_STATE.RESETTING:
+		SetState(MACHINE_STATE.IDLE);
+
+	MACHINE_STATE.HOLDING: 
+		SetState(MACHINE_STATE.HELD);
+	
+	MACHINE_STATE.STARTING:
+		SetState(MACHINE_STATE.EXECUTING);
+
+	MACHINE_STATE.STOPPING:
+		SetState(MACHINE_STATE.STOPPED);
+
+	MACHINE_STATE.SUSPENDING:
+		SetState(MACHINE_STATE.SUSPENDED);
+
+	MACHINE_STATE.UNHOLDING:
+		SetState(MACHINE_STATE.EXECUTING);
+
+	MACHINE_STATE.UNSUSPENDING:	
+		SetState(MACHINE_STATE.EXECUTING);
+
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="packMLStateIsTransition" Id="{e42049eb-bea3-480d-82a0-5ffe379f3c77}">
+      <Declaration><![CDATA[METHOD packMLStateIsTransition : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+packMLStateIsTransition :=
+PackMLState = MACHINE_STATE.ABORTING OR
+PackMLState = MACHINE_STATE.BOOTING OR
+PackMLState = MACHINE_STATE.CLEARING OR
+PackMLState = MACHINE_STATE.COMPLETING OR
+PackMLState = MACHINE_STATE.EXECUTING OR
+PackMLState = MACHINE_STATE.HOLDING OR
+PackMLState = MACHINE_STATE.RESETTING OR
+PackMLState = MACHINE_STATE.STARTING OR
+PackMLState = MACHINE_STATE.STOPPING OR
+PackMLState = MACHINE_STATE.SUSPENDING OR
+PackMLState = MACHINE_STATE.UNHOLDING OR
+PackMLState = MACHINE_STATE.UNSUSPENDING;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterSubsystem" Id="{8bd63e8f-6ba4-4717-aae0-399fcd4553bf}">
+      <Declaration><![CDATA[METHOD RegisterSubsystem : UDINT
+VAR_INPUT
+	subsystem : IPiperModule;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Submodules.countSubmodules < 100 THEN
+	Submodules.submodules[Submodules.countSubmodules] := subsystem; 
+	Submodules.countSubmodules := Submodules.countSubmodules + 1;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetState" Id="{34a81855-5e76-4550-9a2d-94372b0f3e59}">
+      <Declaration><![CDATA[METHOD PRIVATE SetState : BOOL
+VAR_INPUT
+	state : MACHINE_STATE;
+END_VAR
+VAR
+	i: INT;
+	currentModule: IPiperModule;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PackMLState := state;
+
+Substate := 0;
+
+FOR i:=0 TO Submodules.countSubmodules - 1 DO
+
+	currentModule := Submodules.submodules[i];				
+
+	currentModule.setState();
+
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Substate" Id="{2e691407-84cb-493f-af20-f0ae103b88a1}">
+      <Declaration><![CDATA[PROPERTY Substate : ULINT]]></Declaration>
+      <Get Name="Get" Id="{f0606c7f-42a0-42af-858c-12c080b72a96}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Substate := _Substate;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{74bf3d52-0b90-4373-b048-82b30721a2d5}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Substate := Substate;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="UpdateSystemState" Id="{71e9c357-119d-4031-876f-c541eab1e371}">
+      <Declaration><![CDATA[METHOD UpdateSystemState : BOOL
+VAR_INPUT
+END_VAR
+
+VAR
+	i: INT;
+	currentModule: IPiperModule;
+	busy : INT;
+	error : INT;
+	done : INT;
+	substateRequest : ULINT;
+END_VAR
+VAR CONSTANT
+		maxULINT : ULINT := -1;	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[busy := 0;
+done := 0;
+error := 0;
+FOR i:=0 TO MAI_NUM_PIPER_MODULES DO	
+	Submodules.busyModules[i] := 0;
+	Submodules.doneModules[i] := 0;
+	Submodules.errorModules[i] := 0;
+//	IF NOT Submodules.submodules[i].hasContext THEN
+//TODO: 	REFUSE TO RUN AND THROW ERROR
+//			MSG: add FB_Init with THIS^.setContext(Synchronous Context);		
+//	END_IF
+END_FOR
+
+substateRequest := maxULINT;
+
+IF packMLStateIsTransition() THEN
+
+	FOR i:=0 TO Submodules.countSubmodules - 1 DO
+		currentModule := Submodules.submodules[i];				
+		CASE currentModule.response OF
+			RESPONSE_STATE.UNDEFINED,
+			RESPONSE_STATE.BUSY:
+				Submodules.busyModules[busy] := currentModule;
+				
+				//If the module is requesting a substate, it isn't busy, it's waiting
+				IF currentModule.requestedSubstate <> 0 THEN
+	
+					//If it is requesting a lower substate than what is currently being requested
+					// it wins and should be called next
+					IF currentModule.requestedSubstate < substateRequest AND currentModule.requestedSubstate > Substate THEN
+					
+						substateRequest := currentModule.requestedSubstate;
+
+					ELSIF currentModule.requestedSubstate = Substate THEN
+
+						busy := busy + 1;						
+
+					END_IF
+				ELSE
+					busy := busy + 1;											
+				END_IF
+	
+			RESPONSE_STATE.DONE_PENDING,
+			RESPONSE_STATE.DONE:
+				Submodules.doneModules[done] := currentModule;
+				done := done + 1;				
+	
+			RESPONSE_STATE.ERROR:
+				Submodules.errorModules[error] := currentModule;			
+				error := error + 1;			
+				
+		END_CASE		
+	END_FOR
+
+END_IF
+//If there are errors, we go to aborting, unless we are already aborting..
+IF error > 0 THEN
+
+	IF PackMLState <> MACHINE_STATE.ABORTING THEN
+		SetState( MACHINE_STATE.ABORTING );	
+	END_IF
+
+ELSIF busy = 0 THEN
+
+	IF substateRequest < maxULINT AND substateRequest > Substate THEN
+		Substate := substateRequest;
+	ELSE
+		nextState();
+	END_IF
+//ELSIF  THEN
+ 
+END_IF
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

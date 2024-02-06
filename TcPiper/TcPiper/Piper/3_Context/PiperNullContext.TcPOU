@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PiperNullContext" Id="{07930393-8d34-430f-86f6-cac95646cb0a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PiperNullContext IMPLEMENTS IPluginRunner]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RegisterPlugin" Id="{f95b39e0-6a5d-473e-a936-153bf944be5b}">
+      <Declaration><![CDATA[METHOD RegisterPlugin
+VAR_INPUT
+	plugin : IPlugin;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

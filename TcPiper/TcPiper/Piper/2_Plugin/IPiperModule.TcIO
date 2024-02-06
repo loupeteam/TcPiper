@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IPiperModule" Id="{89fd7065-3943-4b1c-ad3e-14ab7dd60316}">
+    <Declaration><![CDATA[INTERFACE IPiperModule EXTENDS IPlugin
+]]></Declaration>
+    <Folder Name="Handshake" Id="{bfeb6266-89a6-4954-9a8c-11f58790206b}" />
+    <Folder Name="PackML" Id="{1c1d730d-e92c-4434-bb9f-84b4c155a076}" />
+    <Folder Name="PackMLAsync" Id="{ec4ba5bf-12eb-47b8-8044-3c4f8b199ed3}" />
+    <Folder Name="setup" Id="{c2d41e69-f75d-4e21-b18b-c749de73c614}" />
+    <Method Name="Aborting" Id="{31bef660-7729-4f0b-ac59-99d5c11ccaec}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Aborting : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="AbortingAsync" Id="{792c629d-6eb9-4ab8-aee4-debd4d726b86}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD AbortingAsync : MACHINE_STATE]]></Declaration>
+    </Method>
+    <Method Name="Booting" Id="{5c590115-8821-4087-9459-bebd4857736c}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Booting : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="BootingAsync" Id="{5120c67c-31df-4ee9-b971-f4a960883a43}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD BootingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="CallState" Id="{547db319-98cd-43be-bfbc-09df5283103d}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD CallState : BOOL
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="CallStateAsync" Id="{4b455c8b-4697-405e-864a-681481284628}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD CallStateAsync : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Clearing" Id="{3d85cf08-da19-4f17-a03d-5b6ca6353df3}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Clearing : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="ClearingAsync" Id="{53cb887a-8205-4038-b50a-d8035f116945}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD ClearingAsync : MACHINE_STATE
+
+]]></Declaration>
+    </Method>
+    <Method Name="Completing" Id="{5d63d193-371d-4cce-80ad-66b121f5e813}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Completing : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="CompletingAsync" Id="{102f0603-dd1d-43d8-9886-3e79acfb035d}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD CompletingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Property Name="currentState" Id="{ab1ec822-8393-4376-afb7-1a080b29213a}" FolderPath="Handshake\">
+      <Declaration><![CDATA[PROPERTY currentState : MACHINE_STATE]]></Declaration>
+      <Get Name="Get" Id="{0ead9c91-a998-4249-a9e9-14d3affaefd4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="didCall" Id="{0a5ed2d3-ceec-4a1f-a4b3-cf86c78200f7}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD didCall : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="didCallAsync" Id="{4e8a607c-e9e9-49a8-b79b-39c3eddd23ea}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD didCallAsync : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Executing" Id="{5904b031-ee1c-4c03-afef-7802b2ddbbc3}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Executing : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="ExecutingAsync" Id="{f57a4d8c-15d8-44a9-b9ef-feae480c11f5}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD ExecutingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="Holding" Id="{09427e55-2fcc-44f0-9fbe-8273e4905b47}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Holding : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="HoldingAsync" Id="{c5281f45-f5db-43d7-a98b-202f08f83a60}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD HoldingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="RegisterToMachine" Id="{22393572-a1b0-41ae-8f7d-0c9e9c9d1a74}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD RegisterToMachine : DINT
+VAR_INPUT
+	machineIn : REFERENCE TO Piper;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="requestedSubstate" Id="{e2364936-16e8-4c1a-b284-038a93d87878}" FolderPath="Handshake\">
+      <Declaration><![CDATA[{warning 'add property implementation'}
+PROPERTY requestedSubstate : ULINT
+]]></Declaration>
+      <Get Name="Get" Id="{ec101671-53eb-4978-b1ae-a023af1dd40c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Resetting" Id="{e9dc57fb-9add-4507-941d-9416a76a3b34}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Resetting : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="ResettingAsync" Id="{70243386-61db-41a6-a658-e57a3e14904f}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD ResettingAsync : BOOL]]></Declaration>
+    </Method>
+    <Property Name="response" Id="{5aee3df5-854d-4946-a55e-2d702773392a}" FolderPath="Handshake\">
+      <Declaration><![CDATA[PROPERTY response : RESPONSE_STATE]]></Declaration>
+      <Get Name="Get" Id="{17a9ae0e-bc4f-4aa6-9d7a-68951e95c80f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Run" Id="{363dda8d-c7e0-4fdc-a632-d3670d4cae33}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="setContext" Id="{41d302b7-09fc-495b-b347-af87fcdc1c1a}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD setContext : BOOL
+VAR_INPUT
+	context : IPluginRunner;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="setState" Id="{bb8b2352-cd8c-4e74-af69-ee7d09ca216b}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD setState : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Starting" Id="{5a22a6a4-4a12-4d54-94bf-32a7fe719ebb}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Starting : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="StartingAsync" Id="{ecc677b1-de59-417d-9106-54d979b52a4f}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD StartingAsync : MACHINE_STATE]]></Declaration>
+    </Method>
+    <Method Name="Stopping" Id="{65bd1fc8-cdd8-4da5-b2a2-e12daa25607d}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Stopping : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="StoppingAsync" Id="{a8cd60f9-a464-40bd-8146-d878194ba8d4}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD StoppingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="Suspending" Id="{228751f1-bef7-4f6f-b15b-25c639455aa6}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Suspending : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="SuspendingAsync" Id="{ebc3e7b0-0b95-424a-b76e-760248d5a9ce}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD SuspendingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="Undefined" Id="{cb777a00-4074-479f-808b-dc80a6d500a8}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Undefined : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="UndefinedAsync" Id="{d4d0f36c-b93f-4f2c-bc0d-292489dcda25}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD UndefinedAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="Unholding" Id="{c2721932-b092-4e90-881f-95da5a1389c0}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Unholding : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="UnholdingAsync" Id="{2f5d526d-825d-4742-88cd-11d652b43e0d}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD UnholdingAsync : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="Unsuspending" Id="{89bb72a2-01ef-4f94-bb39-b3030006b691}" FolderPath="PackML\">
+      <Declaration><![CDATA[METHOD Unsuspending : MACHINE_STATE
+]]></Declaration>
+    </Method>
+    <Method Name="UnsuspendingAsync" Id="{ac9381ab-eb6c-4fda-8d70-0715464659c2}" FolderPath="PackMLAsync\">
+      <Declaration><![CDATA[METHOD UnsuspendingAsync : MACHINE_STATE
+
+]]></Declaration>
+    </Method>
+    <Method Name="willCall" Id="{e0e884c0-97fa-4141-a8b6-fcf6a274136a}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD willCall : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="willCallAsync" Id="{44fa5592-9dbd-464e-bbb5-38e9bc21a877}" FolderPath="setup\">
+      <Declaration><![CDATA[METHOD willCallAsync : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
