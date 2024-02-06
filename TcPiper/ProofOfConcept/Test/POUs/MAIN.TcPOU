@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="MAIN" Id="{64cf3e97-3804-4926-8187-b690cb96d9b0}" SpecialFunc="None">
+  <POU Name="MAIN" Id="{a3a46004-2020-4778-9fbf-7f2bc7484f47}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	machine_level_piper : Piper();
 	task_fb : TaskFB();
 	piper_em : Piper_EM(machine_level_piper, task_fb);
 END_VAR
-
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[machine_level_piper();
+task_fb();
+piper_em();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

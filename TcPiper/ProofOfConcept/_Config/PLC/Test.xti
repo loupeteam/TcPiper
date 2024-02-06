@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.53" ClassName="CNestedPlcProjDef">
-	<Project GUID="{82553D78-D597-4D8F-ACCA-DF9D46E15909}" Name="TcPiper" PrjFilePath="..\..\TcPiper\TcPiper.plcproj" TmcFilePath="..\..\TcPiper\TcPiper.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="TcPiper\TcPiper.tmc" TmcHash="{6E487B37-D449-4833-4754-DCCB6D6EE30C}">
-			<Name>TcPiper Instance</Name>
+	<Project GUID="{437BFE92-98F0-4451-BBB0-E6DA5E53B744}" Name="Test" PrjFilePath="..\..\Test\Test.plcproj" TmcFilePath="..\..\Test\Test.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{A484BB05-489B-F74D-059C-C4B744A65AF3}">
+			<Name>Test Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>
 				<Context>
