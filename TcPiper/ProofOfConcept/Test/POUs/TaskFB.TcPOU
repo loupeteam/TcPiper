@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="TaskFB" Id="{6462aa7d-109a-4387-98ec-58b721f7df0e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TaskFB EXTENDS TaskBase 
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
