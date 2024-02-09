@@ -21,6 +21,7 @@
     <Title>TcPiper</Title>
     <ProjectVersion>0.0.2</ProjectVersion>
     <Author>Loupe</Author>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\MACHINE_STATE.TcTLEO">
@@ -111,6 +112,9 @@
     <PlaceholderReference Include="TcSequencer">
       <DefaultResolution>TcSequencer, * (Loupe)</DefaultResolution>
       <Namespace>TcSequencer</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="TcUnit">
+      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
