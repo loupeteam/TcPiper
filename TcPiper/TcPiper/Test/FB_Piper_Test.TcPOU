@@ -51,15 +51,6 @@ TEST('SetState');
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="HandleBoolCommands" Id="{5bfd85ef-a915-0d04-28b4-86637f4d92f7}">
-      <Declaration><![CDATA[METHOD HandleBoolCommands
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="Holding" Id="{1ccbe795-9e71-0deb-2652-90d9a7429477}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Holding : BOOL
 VAR_INPUT
@@ -180,7 +171,6 @@ TEST_FINISHED();
 TEST('HoldAndUnhold');
 	piper.RegisterSubmodule(piperModule);
 	Starting(piper);
-	//piperModule.keepExecuting := TRUE; // Use module to stay in executing, otherwise it jumps to complete
 	piper.NextState(); // in Executing
 	
 	Holding(piper);

@@ -51,9 +51,6 @@
     <Compile Include="Piper\PiperCommand.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\PiperModuleInternal.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Piper\PiperStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
