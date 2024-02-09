@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TESTPRG" Id="{64cf3e97-3804-4926-8187-b690cb96d9b0}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM TESTPRG
+VAR
+	piper_test : FB_Piper_Test;
+	piper_module_test : FB_Piper_Module_Test;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TcUnit.RUN();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

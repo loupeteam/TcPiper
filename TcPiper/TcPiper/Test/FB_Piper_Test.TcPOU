@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Piper_Test" Id="{68fc7220-a76f-05fc-0e18-f4d46c3c0059}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Piper_Test EXTENDS FB_TestSuite
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[NextState();]]></ST>
+    </Implementation>
+    <Method Name="HandleBoolCommands" Id="{5bfd85ef-a915-0d04-28b4-86637f4d92f7}">
+      <Declaration><![CDATA[METHOD HandleBoolCommands
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NextState" Id="{0bcdaa3a-ee87-022d-33ad-b2aa61c63cc5}">
+      <Declaration><![CDATA[METHOD NextState
+VAR
+	piper : Piper();
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('NextState');
+	// This test confirms the order of state progressions per PackML (with additional BOOTING state)
+	// With no submodules, it's expected Piper will proceed immediately to the next state
+	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.BOOTING, Message := 'Initil state should be BOOTING');
+	piper.NextState();
+	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STOPPED, Message := 'STOPPED state should be after BOOTING');
+	
+	piper.command.Reset := TRUE;
+	piper();
+	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.RESETTING, Message := 'State should be RESETTING');
+	piper.NextState();
+	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'State after RESETTING should be IDLE');
+	
+	piper.command.Start := TRUE;
+	piper();
+	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');
+	piper.NextState();
+	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.EXECUTING, Message := 'State after STARTING should be EXECUTING');
+
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetState" Id="{c0302bd5-f07a-06ee-1d5c-15fc195e6380}">
+      <Declaration><![CDATA[METHOD SetState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Check that state actually gets set]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

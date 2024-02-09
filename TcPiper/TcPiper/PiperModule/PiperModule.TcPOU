@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="PiperModule" Id="{a49f2d62-e1fb-48a5-85f3-63c6ca0008b5}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT PiperModule IMPLEMENTS IPiperModule, ISequence, IStepManager
 VAR
@@ -571,7 +571,7 @@ END_VAR
         <ST><![CDATA[IF NOT i_PiperModuleInternal.registered THEN	
 	i_PiperModuleInternal.registered := TRUE;
 	i_PiperModuleInternal.machine REF= machineIn;
-	i_PiperModuleInternal.machine.RegisterSubsystem( THIS^ );
+	i_PiperModuleInternal.machine.RegisterSubmodule( THIS^ );
 END_IF
 ]]></ST>
       </Implementation>
