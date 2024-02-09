@@ -62,28 +62,33 @@
     </Compile>
     <Compile Include="Piper\PIPER_CONST.TcGVL">
       <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MAIN.TcPOU">
+    <Compile Include="Test\FB_Piper_Module_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Piper_EM.TcPOU">
+    <Compile Include="Test\FB_Piper_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\TaskFB.TcPOU">
+    <Compile Include="Test\Piper_EM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\TaskFB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\TESTPRG.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="PiperModule" />
+    <Folder Include="Test" />
     <Folder Include="Piper" />
-    <Folder Include="Piper\1_Controller" />
-    <Folder Include="Piper\2_Plugin" />
-    <Folder Include="Piper\3_Context" />
-    <Folder Include="Piper\4_Utilities" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
