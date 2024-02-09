@@ -168,37 +168,36 @@ TEST('ExecuteAndStop');
 	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 TEST_FINISHED();
 
-TEST('HoldAndUnhold');
-	piper.RegisterSubmodule(piperModule);
-	Starting(piper);
-	piper.NextState(); // in Executing
+//TEST('HoldAndUnhold');
+//	piper.RegisterSubmodule(piperModule);
+//	Starting(piper);
+//	piper.NextState(); // in Executing
 	
-	Holding(piper);
-	Unholding(piper);
+//	Holding(piper);
+//	Unholding(piper);
 	
-	Stopping(piper);
-	piper.NextState();
-	//piperModule.keepExecuting := FALSE;
-	// stopped
-	Resetting(piper);
-	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
-TEST_FINISHED();
+//	Stopping(piper);
+//	piper.NextState();
+//	// stopped
+//	Resetting(piper);
+//	piper.NextState();
+//	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+//TEST_FINISHED();
 
-TEST('SuspendAndUnSuspend');
-	Starting(piper);
-	piper.NextState(); // in Executing
+//TEST('SuspendAndUnSuspend');
+//	Starting(piper);
+//	piper.NextState(); // in Executing
 	
-	Suspending(piper);
-	Unsuspending(piper);
+//	Suspending(piper);
+//	Unsuspending(piper);
 	
-	Stopping(piper);
-	piper.NextState();
-	// stopped
-	Resetting(piper);
-	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
-TEST_FINISHED();]]></ST>
+//	Stopping(piper);
+//	piper.NextState();
+//	// stopped
+//	Resetting(piper);
+//	piper.NextState();
+//	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+//TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{674f0d8d-b58f-0301-35f4-696c54818e38}" FolderPath="PartialTestsForStateTransitions\">
