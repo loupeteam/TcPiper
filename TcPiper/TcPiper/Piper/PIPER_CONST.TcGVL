@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <GVL Name="PIPER_CONST" Id="{07320410-48d8-43fe-bc90-eb7010206b8d}">
     <Declaration><![CDATA[VAR_GLOBAL CONSTANT
 	MAX_NUM_PIPER_MODULES : USINT := 10;

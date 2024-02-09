@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Piper" Id="{66941a2f-a2d2-47a0-af96-5aaa6b0f29a0}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Piper
 VAR_INPUT
@@ -114,8 +114,8 @@ command.Unsuspend := FALSE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="nextState" Id="{44f22c80-0b1e-4773-b71a-0eccca67bba2}">
-      <Declaration><![CDATA[METHOD nextState : BOOL
+    <Method Name="NextState" Id="{44f22c80-0b1e-4773-b71a-0eccca67bba2}">
+      <Declaration><![CDATA[METHOD NextState
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -160,8 +160,8 @@ END_VAR
 END_CASE]]></ST>
       </Implementation>
     </Method>
-    <Method Name="packMLStateIsTransition" Id="{e42049eb-bea3-480d-82a0-5ffe379f3c77}">
-      <Declaration><![CDATA[METHOD packMLStateIsTransition : BOOL
+    <Method Name="PackMLStateIsTransition" Id="{e42049eb-bea3-480d-82a0-5ffe379f3c77}">
+      <Declaration><![CDATA[METHOD PackMLStateIsTransition : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -182,8 +182,8 @@ PackMLState = MACHINE_STATE.UNHOLDING OR
 PackMLState = MACHINE_STATE.UNSUSPENDING;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RegisterSubsystem" Id="{8bd63e8f-6ba4-4717-aae0-399fcd4553bf}">
-      <Declaration><![CDATA[METHOD RegisterSubsystem : UDINT
+    <Method Name="RegisterSubmodule" Id="{8bd63e8f-6ba4-4717-aae0-399fcd4553bf}">
+      <Declaration><![CDATA[METHOD RegisterSubmodule : UDINT
 VAR_INPUT
 	subsystem : IPiperModule;
 END_VAR
@@ -280,10 +280,10 @@ IF packMLStateIsTransition() THEN
 			RESPONSE_STATE.BUSY:
 				Submodules.busyModules[busy] := currentModule;
 				
-				//If the module is requesting a substate, it isn't busy, it's waiting
+				// If the module is requesting a substate, it isn't busy, it's waiting
 				IF currentModule.requestedSubstate <> 0 THEN
 	
-					//If it is requesting a lower substate than what is currently being requested
+					// If it is requesting a lower substate than what is currently being requested
 					// it wins and should be called next
 					IF currentModule.requestedSubstate < substateRequest AND currentModule.requestedSubstate > Substate THEN
 					

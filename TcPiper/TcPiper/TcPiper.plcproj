@@ -6,7 +6,7 @@
     <ProjectGuid>{82553d78-d597-4d8f-acca-df9d46e15909}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
-    <WriteProductVersion>true</WriteProductVersion>
+    <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>TcPiper</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
@@ -21,6 +21,17 @@
     <Title>TcPiper</Title>
     <ProjectVersion>0.0.2</ProjectVersion>
     <Author>Loupe</Author>
+    <CombineIds>true</CombineIds>
+    <LibraryCategories>
+      <LibraryCategory xmlns="">
+        <Id>{09904977-c10b-4290-b9fa-0485eee86e1c}</Id>
+        <Version>1.0.0.0</Version>
+        <DefaultName>Loupe</DefaultName>
+      </LibraryCategory>
+    </LibraryCategories>
+    <SelectedLibraryCategories>
+      <Id xmlns="">{09904977-c10b-4290-b9fa-0485eee86e1c}</Id>
+    </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\MACHINE_STATE.TcTLEO">
@@ -29,61 +40,63 @@
     <Compile Include="DUTs\RESPONSE_STATE.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\Piper.TcPOU">
+    <Compile Include="PiperModule\IPiperModule.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PiperCommand.TcDUT">
+    <Compile Include="PiperModule\PiperImplements.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PiperStatus.TcDUT">
+    <Compile Include="PiperModule\PiperModule.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PiperSubmoduleCollection.TcDUT">
+    <Compile Include="PiperModule\PiperModuleInternal.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PIPER_CONST.TcGVL">
+    <Compile Include="Piper\GroupStatus.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Piper\Piper.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Piper\PiperCommand.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Piper\PiperStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Piper\PiperSubmoduleCollection.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Piper\PIPER_CONST.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="Piper\2_Plugin\IPiperModule.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Piper\2_Plugin\PiperImplements.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Piper\2_Plugin\PiperModule.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Piper\2_Plugin\PiperModuleInternal.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Piper\3_Context\PiperNullContext.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Piper\4_Utilities\GroupStatus.TcPOU">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MAIN.TcPOU">
+    <Compile Include="Test\FB_Piper_Module_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Piper_EM.TcPOU">
+    <Compile Include="Test\FB_Piper_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\TaskFB.TcPOU">
+    <Compile Include="Test\Fixtures\Piper_EM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\Fixtures\TaskFB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Test\TESTPRG.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="PiperModule" />
+    <Folder Include="Test" />
     <Folder Include="Piper" />
-    <Folder Include="Piper\1_Controller" />
-    <Folder Include="Piper\2_Plugin" />
-    <Folder Include="Piper\3_Context" />
-    <Folder Include="Piper\4_Utilities" />
+    <Folder Include="Test\Fixtures" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -111,6 +124,9 @@
     <PlaceholderReference Include="TcSequencer">
       <DefaultResolution>TcSequencer, * (Loupe)</DefaultResolution>
       <Namespace>TcSequencer</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="TcUnit">
+      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
