@@ -30,38 +30,37 @@
     <Compile Include="DUTs\RESPONSE_STATE.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\Piper.TcPOU">
+    <Compile Include="PiperModule\IPiperModule.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PiperCommand.TcDUT">
+    <Compile Include="PiperModule\PiperImplements.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PiperStatus.TcDUT">
+    <Compile Include="PiperModule\PiperModule.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PiperSubmoduleCollection.TcDUT">
+    <Compile Include="PiperModule\PiperModuleInternal.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\1_Controller\PIPER_CONST.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="Piper\2_Plugin\IPiperModule.TcIO">
+    <Compile Include="Piper\GroupStatus.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\2_Plugin\PiperImplements.TcDUT">
+    <Compile Include="Piper\Piper.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\2_Plugin\PiperModule.TcPOU">
+    <Compile Include="Piper\PiperCommand.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\2_Plugin\PiperModuleInternal.TcDUT">
+    <Compile Include="Piper\PiperModuleInternal.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\3_Context\PiperNullContext.TcPOU">
+    <Compile Include="Piper\PiperStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\4_Utilities\GroupStatus.TcPOU">
+    <Compile Include="Piper\PiperSubmoduleCollection.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Piper\PIPER_CONST.TcGVL">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
