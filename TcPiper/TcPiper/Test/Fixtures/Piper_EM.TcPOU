@@ -8,11 +8,21 @@ VAR_OUTPUT
 END_VAR
 VAR
 	task: REFERENCE TO TaskFB;
+	keepExecuting : BOOL := TRUE;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Executing" Id="{687a8988-295f-0d32-36fb-3c36085d63e6}">
+      <Declaration><![CDATA[METHOD Executing : MACHINE_STATE
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WHILE keepExecuting DO;
+	//
+END_WHILE]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{849118c9-b30c-4253-9dc8-45fb450e8398}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT

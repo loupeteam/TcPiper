@@ -73,10 +73,10 @@
     <Compile Include="Test\FB_Piper_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\Piper_EM.TcPOU">
+    <Compile Include="Test\Fixtures\Piper_EM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\TaskFB.TcPOU">
+    <Compile Include="Test\Fixtures\TaskFB.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test\TESTPRG.TcPOU">
@@ -89,6 +89,7 @@
     <Folder Include="PiperModule" />
     <Folder Include="Test" />
     <Folder Include="Piper" />
+    <Folder Include="Test\Fixtures" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
