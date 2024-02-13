@@ -98,7 +98,6 @@
     <Folder Include="Piper" />
     <Folder Include="Test\Fixtures" />
     <Folder Include="VISUs" />
-    <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">

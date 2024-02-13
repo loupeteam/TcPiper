@@ -2,6 +2,8 @@
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="IPiperModule" Id="{89fd7065-3943-4b1c-ad3e-14ab7dd60316}">
     <Declaration><![CDATA[INTERFACE IPiperModule EXTENDS IPlugin
+// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
 ]]></Declaration>
     <Folder Name="Handshake" Id="{bfeb6266-89a6-4954-9a8c-11f58790206b}" />
     <Folder Name="PackML" Id="{1c1d730d-e92c-4434-bb9f-84b4c155a076}" />

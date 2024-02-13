@@ -10,7 +10,9 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CommandSetsState();
+      <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+CommandSetsState();
 StateTransitions();]]></ST>
     </Implementation>
     <Folder Name="PartialTestsForStateTransitions" Id="{02880b83-610a-097b-2248-8bc540cec99f}" />

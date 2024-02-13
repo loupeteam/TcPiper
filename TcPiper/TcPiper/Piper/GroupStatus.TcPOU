@@ -12,7 +12,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.]]></ST>
     </Implementation>
     <Method Name="Busy" Id="{fe61334e-f225-49f0-8a17-ff1b39f4d264}">
       <Declaration><![CDATA[METHOD Busy
@@ -21,7 +21,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Busy := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+_Busy := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -32,7 +34,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Error := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+_Error := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -43,7 +47,9 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[isBusy := NOT _Error AND _Busy;]]></ST>
+          <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+isBusy := NOT _Error AND _Busy;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -54,7 +60,9 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[isDone := NOT _Error AND NOT _Busy;]]></ST>
+          <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+isDone := NOT _Error AND NOT _Busy;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -65,7 +73,9 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[isError := _Error;]]></ST>
+          <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+isError := _Error;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -75,7 +85,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{77e19edc-3ebc-48b1-879e-51ee30f840ea}">
@@ -84,7 +95,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Busy := FALSE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+_Busy := FALSE;
 _Error := FALSE;
 ]]></ST>
       </Implementation>
@@ -96,7 +109,9 @@ _Error := FALSE;
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[IF _Error THEN
+          <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+IF _Error THEN
 	
 status := PLCOpenStatusBase.ERROR;
 

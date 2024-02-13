@@ -14,7 +14,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[UpdateSystemState();
+      <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+UpdateSystemState();
 HandleBoolCommands();
 CallCurrentState();
 ]]></ST>
@@ -28,7 +29,9 @@ VAR
 	currentModule : IPiperModule;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR i:=0 TO Submodules.countSubmodules - 1 DO
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+FOR i:=0 TO Submodules.countSubmodules - 1 DO
 
 	currentModule := Submodules.submodules[i];
 	currentModule.CallStateAsync();
@@ -42,7 +45,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//Standard state transitions
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+//Standard state transitions
 CASE PackMLState OF
 	MACHINE_STATE.ABORTED:
 		IF command.Clear THEN
@@ -120,7 +125,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE PackMLState OF
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+CASE PackMLState OF
 	MACHINE_STATE.ABORTING:
 		SetState(MACHINE_STATE.ABORTED);
 
@@ -166,7 +173,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
 packMLStateIsTransition :=
 PackMLState = MACHINE_STATE.ABORTING OR
 PackMLState = MACHINE_STATE.BOOTING OR
@@ -189,7 +197,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Submodules.countSubmodules < 100 THEN
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+IF Submodules.countSubmodules < 100 THEN
 	Submodules.submodules[Submodules.countSubmodules] := subsystem; 
 	Submodules.countSubmodules := Submodules.countSubmodules + 1;
 END_IF]]></ST>
@@ -205,7 +215,9 @@ VAR
 	currentModule: IPiperModule;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[PackMLState := state;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+PackMLState := state;
 
 Substate := 0;
 
@@ -226,7 +238,9 @@ END_FOR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Substate := _Substate;]]></ST>
+          <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+Substate := _Substate;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{74bf3d52-0b90-4373-b048-82b30721a2d5}">
@@ -235,7 +249,9 @@ VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_Substate := Substate;]]></ST>
+          <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+_Substate := Substate;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -256,7 +272,9 @@ VAR CONSTANT
 		maxULINT : ULINT := -1;	
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[busy := 0;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+busy := 0;
 done := 0;
 error := 0;
 FOR i:=0 TO MAI_NUM_PIPER_MODULES DO	
