@@ -17,7 +17,7 @@ END_VAR
     <Method Name="Busy" Id="{fe61334e-f225-49f0-8a17-ff1b39f4d264}">
       <Declaration><![CDATA[METHOD Busy
 VAR_INPUT
-	Message : STRING[80];
+    Message : STRING[80];
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -30,7 +30,7 @@ _Busy := TRUE;
     <Method Name="Error" Id="{a774ec91-6e7f-4e7e-9619-0d714616bbff}">
       <Declaration><![CDATA[METHOD Error
 VAR_INPUT
-	Message : STRING[80];
+    Message : STRING[80];
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -112,17 +112,17 @@ END_VAR
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 IF _Error THEN
-	
-status := PLCOpenStatusBase.ERROR;
+
+    status := PLCOpenStatusBase.ERROR;
 
 ELSIF _Busy THEN
 
-status := PLCOpenStatusBase.BUSY;
+    status := PLCOpenStatusBase.BUSY;
 
 ELSE
 
-status := PLCOpenStatusBase.ERR_OK;
-	
+    status := PLCOpenStatusBase.ERR_OK;
+
 END_IF]]></ST>
         </Implementation>
       </Get>
