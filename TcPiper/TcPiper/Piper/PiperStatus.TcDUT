@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="PiperStatus" Id="{c45b24db-af61-4757-a3bf-0b74bf7fe770}">
-    <Declaration><![CDATA[TYPE PiperStatus :
-STRUCT
-	state : MACHINE_STATE;
-	subState : DINT;
-END_STRUCT
+    <Declaration><![CDATA[TYPE
+    PiperStatus :
+    STRUCT
+        state : MACHINE_STATE;
+        subState : DINT;
+    END_STRUCT
 END_TYPE
 ]]></Declaration>
   </DUT>

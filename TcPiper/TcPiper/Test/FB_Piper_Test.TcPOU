@@ -10,18 +10,22 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CommandSetsState();
+      <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+CommandSetsState();
 StateTransitions();]]></ST>
     </Implementation>
     <Folder Name="PartialTestsForStateTransitions" Id="{02880b83-610a-097b-2248-8bc540cec99f}" />
     <Method Name="AbortAndClear" Id="{c5c2e356-af92-0470-06c7-0552a5a2869e}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD AbortAndClear
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Abort := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Abort := TRUE;
 piper();
 AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.ABORTING, Message := 'State should be ABORTING');
 piper.NextState();
@@ -37,28 +41,35 @@ AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STOPPED, Message := 'State af
     <Method Name="CommandSetsState" Id="{c0302bd5-f07a-06ee-1d5c-15fc195e6380}">
       <Declaration><![CDATA[METHOD CommandSetsState
 VAR
-	piper : Piper;
+    piper : Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// Check that state actually gets set
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+// Check that state actually gets set
 // Run this sanity check before the full state transition checks
 TEST('SetState');
-	piper.command.Reset := TRUE;
-	piper();
-	AssertFalse(piper.command.Reset, Message := 'Command should be cyclicly reset');
-	AssertEquals_DINT(piper.PackMLState, MACHINE_STATE.RESETTING, Message := 'Setting a valid state command and cyclic calling FUB once should change state');
+piper.command.Reset := TRUE;
+piper();
+AssertFalse(piper.command.Reset, Message := 'Command should be cyclicly reset');
+AssertEquals_DINT(piper.PackMLState,
+    MACHINE_STATE.RESETTING,
+    Message := 'Setting a valid state command and cyclic calling FUB once should change state');
+
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Holding" Id="{1ccbe795-9e71-0deb-2652-90d9a7429477}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Holding : BOOL
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Hold := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Hold := TRUE;
 piper();
 AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.HOLDING, Message := 'State should be HOLDING');]]></ST>
       </Implementation>
@@ -66,11 +77,13 @@ AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.HOLDING
     <Method Name="Resetting" Id="{442f8c1d-3e24-0484-05f8-c450bb57964e}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Resetting
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Reset := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Reset := TRUE;
 piper();
 AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.RESETTING, Message := 'State should be RESETTING');]]></ST>
       </Implementation>
@@ -78,11 +91,13 @@ AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.RESETTI
     <Method Name="StartAndExecute" Id="{1503700b-a107-092d-0dda-dabd453b3226}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD StartAndExecute : BOOL
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Start := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Start := TRUE;
 piper();
 AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');
 piper.NextState();
@@ -92,11 +107,13 @@ piper();]]></ST>
     <Method Name="Starting" Id="{1a40e8b9-782b-0c9e-1434-1b3a5144a2db}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Starting
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Start := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Start := TRUE;
 piper();
 AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');]]></ST>
       </Implementation>
@@ -104,14 +121,18 @@ AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STARTING, Message := 'State s
     <Method Name="StateTransitions" Id="{0bcdaa3a-ee87-022d-33ad-b2aa61c63cc5}">
       <Declaration><![CDATA[METHOD StateTransitions
 VAR
-	piper : Piper();
-	task : TaskFB();
-	piperModule : Piper_EM(piper, task);
+    piper : Piper();
+    task : TaskFB();
+    piperModule : Piper_EM(piper, task);
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// This test confirms the order of state progressions per PackML (with additional BOOTING state)
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+// This test confirms the order of state progressions per PackML (with additional BOOTING state)
 // With no submodules, it's expected Piper will proceed immediately to the next state
+
+(*STweep.Disable*)
 
 TEST('BootAndReset');
 	// Note: there is currently no abort while booting
@@ -122,7 +143,7 @@ TEST('BootAndReset');
 	Resetting(piper);
 	piper.NextState();
 	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
-		
+
 TEST_FINISHED();
 
 TEST('StartAndAbortWhileStarting');
@@ -172,10 +193,10 @@ TEST_FINISHED();
 //	piper.RegisterSubmodule(piperModule);
 //	Starting(piper);
 //	piper.NextState(); // in Executing
-	
+
 //	Holding(piper);
 //	Unholding(piper);
-	
+
 //	Stopping(piper);
 //	piper.NextState();
 //	// stopped
@@ -187,10 +208,10 @@ TEST_FINISHED();
 //TEST('SuspendAndUnSuspend');
 //	Starting(piper);
 //	piper.NextState(); // in Executing
-	
+
 //	Suspending(piper);
 //	Unsuspending(piper);
-	
+
 //	Stopping(piper);
 //	piper.NextState();
 //	// stopped
@@ -203,26 +224,28 @@ TEST_FINISHED();
     <Method Name="Stopping" Id="{674f0d8d-b58f-0301-35f4-696c54818e38}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Stopping : BOOL
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Stop := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Stop := TRUE;
 piper();
 AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STOPPING, Message := 'State should be STOPPING');
-
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="Suspending" Id="{0729cdc7-2784-0ac8-0f52-122ac02f1e89}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Suspending : BOOL
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
-
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Suspend := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Suspend := TRUE;
 piper();
 AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.SUSPENDING, Message := 'State should be SUSPENDING');]]></ST>
       </Implementation>
@@ -230,10 +253,12 @@ AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.SUSPEND
     <Method Name="Unholding" Id="{2edea14a-06a7-0455-011d-6b1dd451c7c5}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Unholding : BOOL
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Unhold := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Unhold := TRUE;
 piper();
 AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.UNHOLDING, Message := 'State should be UNHOLDING');]]></ST>
       </Implementation>
@@ -241,11 +266,13 @@ AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.UNHOLDI
     <Method Name="Unsuspending" Id="{9f5295b8-2127-095f-05f0-00362851360a}" FolderPath="PartialTestsForStateTransitions\">
       <Declaration><![CDATA[METHOD Unsuspending : BOOL
 VAR_INPUT
-	piper : REFERENCE TO Piper;
+    piper : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[piper.command.Unsuspend := TRUE;
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+piper.command.Unsuspend := TRUE;
 piper();
 AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.UNSUSPENDING, Message := 'State should be UNSUSPENDING');]]></ST>
       </Implementation>

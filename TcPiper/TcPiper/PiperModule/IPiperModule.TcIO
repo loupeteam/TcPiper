@@ -2,6 +2,8 @@
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="IPiperModule" Id="{89fd7065-3943-4b1c-ad3e-14ab7dd60316}">
     <Declaration><![CDATA[INTERFACE IPiperModule EXTENDS IPlugin
+// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
 ]]></Declaration>
     <Folder Name="Handshake" Id="{bfeb6266-89a6-4954-9a8c-11f58790206b}" />
     <Folder Name="PackML" Id="{1c1d730d-e92c-4434-bb9f-84b4c155a076}" />
@@ -41,7 +43,6 @@ END_VAR
     </Method>
     <Method Name="ClearingAsync" Id="{53cb887a-8205-4038-b50a-d8035f116945}" FolderPath="PackMLAsync\">
       <Declaration><![CDATA[METHOD ClearingAsync : MACHINE_STATE
-
 ]]></Declaration>
     </Method>
     <Method Name="Completing" Id="{5d63d193-371d-4cce-80ad-66b121f5e813}" FolderPath="PackML\">
@@ -89,7 +90,7 @@ END_VAR
     <Method Name="RegisterToMachine" Id="{22393572-a1b0-41ae-8f7d-0c9e9c9d1a74}" FolderPath="setup\">
       <Declaration><![CDATA[METHOD RegisterToMachine : DINT
 VAR_INPUT
-	machineIn : REFERENCE TO Piper;
+    machineIn : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -121,7 +122,7 @@ PROPERTY requestedSubstate : ULINT
     <Method Name="setContext" Id="{41d302b7-09fc-495b-b347-af87fcdc1c1a}" FolderPath="setup\">
       <Declaration><![CDATA[METHOD setContext : BOOL
 VAR_INPUT
-	context : IPluginRunner;
+    context : IPluginRunner;
 END_VAR
 ]]></Declaration>
     </Method>
@@ -176,7 +177,6 @@ END_VAR
     </Method>
     <Method Name="UnsuspendingAsync" Id="{ac9381ab-eb6c-4fda-8d70-0715464659c2}" FolderPath="PackMLAsync\">
       <Declaration><![CDATA[METHOD UnsuspendingAsync : MACHINE_STATE
-
 ]]></Declaration>
     </Method>
     <Method Name="willCall" Id="{e0e884c0-97fa-4141-a8b6-fcf6a274136a}" FolderPath="setup\">

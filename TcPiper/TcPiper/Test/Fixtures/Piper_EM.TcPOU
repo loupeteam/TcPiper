@@ -7,33 +7,39 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	task: REFERENCE TO TaskFB;
-	keepExecuting : BOOL := TRUE;
+    task : REFERENCE TO TaskFB;
+    keepExecuting : BOOL := TRUE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+]]></ST>
     </Implementation>
     <Method Name="Executing" Id="{687a8988-295f-0d32-36fb-3c36085d63e6}">
       <Declaration><![CDATA[METHOD Executing : MACHINE_STATE
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[WHILE keepExecuting DO;
-	//
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+WHILE keepExecuting DO
+    ;
+    //
 END_WHILE]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_init" Id="{849118c9-b30c-4253-9dc8-45fb450e8398}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	machineIn : REFERENCE TO Piper;
-	taskFB : REFERENCE TO TaskFB;
-//	context : IPluginRunner;
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    machineIn : REFERENCE TO Piper;
+    taskFB : REFERENCE TO TaskFB;
+    //	context : IPluginRunner;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^.setContext(taskFB);
+        <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
+THIS^.setContext(taskFB);
 task REF= taskFB;]]></ST>
       </Implementation>
     </Method>
