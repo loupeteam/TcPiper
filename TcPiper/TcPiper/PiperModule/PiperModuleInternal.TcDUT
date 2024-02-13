@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="PiperModuleInternal" Id="{44cb28c5-3604-437e-8c8d-62be209a7d26}">
-    <Declaration><![CDATA[TYPE PiperModuleInternal :
-STRUCT
-	machine : REFERENCE TO Piper;
-	context : IPluginRunner;
-	registered : BOOL;
-	response : RESPONSE_STATE;
-	requestSubstate : ULINT;
-	previousSubstate : ULINT;
-	previousSubstateAsync : ULINT;
-	skipsSync : PiperImplements;
-	skipsAsync : PiperImplements;	
-	requestNumber : DINT;
-END_STRUCT
+    <Declaration><![CDATA[TYPE
+    PiperModuleInternal :
+    STRUCT
+        machine : REFERENCE TO Piper;
+        context : IPluginRunner;
+        registered : BOOL;
+        response : RESPONSE_STATE;
+        requestSubstate : ULINT;
+        previousSubstate : ULINT;
+        previousSubstateAsync : ULINT;
+        skipsSync : PiperImplements;
+        skipsAsync : PiperImplements;
+        requestNumber : DINT;
+    END_STRUCT
 END_TYPE
 ]]></Declaration>
   </DUT>
