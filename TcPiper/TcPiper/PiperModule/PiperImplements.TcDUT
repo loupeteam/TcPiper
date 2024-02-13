@@ -1,21 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="PiperImplements" Id="{2b51da57-a32f-49e3-8800-6b62ef18d8cd}">
-    <Declaration><![CDATA[TYPE PiperImplements :
-STRUCT
-	aborting : BOOL;
-	booting : BOOL;
-	clearing : BOOL;
-	completing : BOOL;
-	executing : BOOL;
-	holding : BOOL;
-	resetting : BOOL;
-	starting : BOOL;
-	stopping : BOOL;
-	suspending : BOOL;
-	unholding : BOOL;
-	unsuspending : BOOL;
-END_STRUCT
+    <Declaration><![CDATA[TYPE
+    PiperImplements :
+    STRUCT
+        aborting : BOOL;
+        booting : BOOL;
+        clearing : BOOL;
+        completing : BOOL;
+        executing : BOOL;
+        holding : BOOL;
+        resetting : BOOL;
+        starting : BOOL;
+        stopping : BOOL;
+        suspending : BOOL;
+        unholding : BOOL;
+        unsuspending : BOOL;
+    END_STRUCT
 END_TYPE
 ]]></Declaration>
   </DUT>

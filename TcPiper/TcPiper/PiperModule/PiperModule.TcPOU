@@ -3,10 +3,10 @@
   <POU Name="PiperModule" Id="{a49f2d62-e1fb-48a5-85f3-63c6ca0008b5}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT PiperModule IMPLEMENTS IPiperModule, ISequence, IStepManager
 VAR
-	i_PiperModuleInternal : PiperModuleInternal;
-	i_sequence : SequenceType;
-	_sequence : Sequencer(THIS^);
-	command : PLCOpenCall;
+    i_PiperModuleInternal : PiperModuleInternal;
+    i_sequence : SequenceType;
+    _sequence : Sequencer(THIS^);
+    command : PLCOpenCall;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -26,7 +26,7 @@ END_VAR
     <Method Name="_requestStep" Id="{f4f6af93-0cb3-42b4-9ca9-21e1cca56843}" FolderPath="StepManager\">
       <Declaration><![CDATA[METHOD _requestStep : BOOL
 VAR_INPUT
-	nextStep	: ENUM;
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -71,7 +71,6 @@ i_PiperModuleInternal.response := RESPONSE_STATE.ERROR;]]></ST>
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
-
 
 i_sequence.activeTasks.Aborted();]]></ST>
       </Implementation>
@@ -123,77 +122,76 @@ END_VAR
 THIS^.willCall();
 
 IF THIS^.i_PiperModuleInternal.previousSubstate <> THIS^.currentSubstate THEN
-	THIS^.willChangeSubstate();
+    THIS^.willChangeSubstate();
 END_IF
 
 THIS^.i_PiperModuleInternal.previousSubstate := THIS^.currentSubstate;
 
 IF response <> RESPONSE_STATE.DONE AND requestedSubstate <= currentSubstate THEN
-	CASE currentState OF
-		MACHINE_STATE.ABORTING:
-			IF NOT i_PiperModuleInternal.skipsSync.aborting THEN
-				THIS^.Aborting();
-			END_IF
-			
-		MACHINE_STATE.BOOTING:
-			IF NOT i_PiperModuleInternal.skipsSync.booting THEN
-				THIS^.Booting();
-			END_IF
-	
-	
-		MACHINE_STATE.CLEARING:
-			IF NOT i_PiperModuleInternal.skipsSync.clearing THEN
-				THIS^.Clearing();
-			END_IF
-	
-		MACHINE_STATE.COMPLETING:
-			IF NOT i_PiperModuleInternal.skipsSync.completing THEN
-				THIS^.COMPLETING();
-			END_IF
-	
-			
-		MACHINE_STATE.EXECUTING:
-			IF NOT i_PiperModuleInternal.skipsSync.executing THEN
-				THIS^.Executing();
-			END_IF
-	
-		MACHINE_STATE.HOLDING:
-			IF NOT i_PiperModuleInternal.skipsSync.holding THEN
-				THIS^.Holding();
-			END_IF
-	
-		MACHINE_STATE.RESETTING:
-			IF NOT i_PiperModuleInternal.skipsSync.resetting THEN
-				THIS^.Resetting();
-			END_IF
-	
-		MACHINE_STATE.STARTING:
-			IF NOT i_PiperModuleInternal.skipsSync.starting THEN
-				THIS^.Starting();
-			END_IF
-	
-		MACHINE_STATE.STOPPING:
-			IF NOT i_PiperModuleInternal.skipsSync.stopping THEN
-				THIS^.Stopping();
-			END_IF
-	
-		MACHINE_STATE.SUSPENDING:
-			IF NOT i_PiperModuleInternal.skipsSync.suspending THEN
-				THIS^.Suspending();
-			END_IF
-	
-		MACHINE_STATE.UNHOLDING:
-			IF NOT i_PiperModuleInternal.skipsSync.unholding THEN
-				THIS^.Unholding();
-			END_IF
-	
-		MACHINE_STATE.UNSUSPENDING:
-			IF NOT i_PiperModuleInternal.skipsSync.unsuspending THEN
-				THIS^.Unsuspending();
-			END_IF
-	
-	END_CASE
+    CASE currentState OF
+        MACHINE_STATE.ABORTING:
+            IF NOT i_PiperModuleInternal.skipsSync.aborting THEN
+                THIS^.Aborting();
+            END_IF
+
+        MACHINE_STATE.BOOTING:
+            IF NOT i_PiperModuleInternal.skipsSync.booting THEN
+                THIS^.Booting();
+            END_IF
+
+        MACHINE_STATE.CLEARING:
+            IF NOT i_PiperModuleInternal.skipsSync.clearing THEN
+                THIS^.Clearing();
+            END_IF
+
+        MACHINE_STATE.COMPLETING:
+            IF NOT i_PiperModuleInternal.skipsSync.completing THEN
+                THIS^.COMPLETING();
+            END_IF
+
+        MACHINE_STATE.EXECUTING:
+            IF NOT i_PiperModuleInternal.skipsSync.executing THEN
+                THIS^.Executing();
+            END_IF
+
+        MACHINE_STATE.HOLDING:
+            IF NOT i_PiperModuleInternal.skipsSync.holding THEN
+                THIS^.Holding();
+            END_IF
+
+        MACHINE_STATE.RESETTING:
+            IF NOT i_PiperModuleInternal.skipsSync.resetting THEN
+                THIS^.Resetting();
+            END_IF
+
+        MACHINE_STATE.STARTING:
+            IF NOT i_PiperModuleInternal.skipsSync.starting THEN
+                THIS^.Starting();
+            END_IF
+
+        MACHINE_STATE.STOPPING:
+            IF NOT i_PiperModuleInternal.skipsSync.stopping THEN
+                THIS^.Stopping();
+            END_IF
+
+        MACHINE_STATE.SUSPENDING:
+            IF NOT i_PiperModuleInternal.skipsSync.suspending THEN
+                THIS^.Suspending();
+            END_IF
+
+        MACHINE_STATE.UNHOLDING:
+            IF NOT i_PiperModuleInternal.skipsSync.unholding THEN
+                THIS^.Unholding();
+            END_IF
+
+        MACHINE_STATE.UNSUSPENDING:
+            IF NOT i_PiperModuleInternal.skipsSync.unsuspending THEN
+                THIS^.Unsuspending();
+            END_IF
+
+    END_CASE
 END_IF
+
 THIS^.didCall();
 ]]></ST>
       </Implementation>
@@ -201,7 +199,7 @@ THIS^.didCall();
     <Method Name="CallStateAsync" Id="{e1b90424-eb8a-4298-af7b-9ebf7a18fd7f}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD CallStateAsync : BOOL
 VAR_INPUT
-	
+
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -210,101 +208,100 @@ END_VAR
 THIS^.willCallAsync();
 
 IF THIS^.i_PiperModuleInternal.previousSubstateAsync <> THIS^.currentSubstate THEN
-	THIS^.willChangeSubstateAsync();
+    THIS^.willChangeSubstateAsync();
 END_IF
 
 THIS^.i_PiperModuleInternal.previousSubstateAsync := THIS^.currentSubstate;
 
 IF response <> RESPONSE_STATE.DONE AND requestedSubstate <= currentSubstate THEN
-	CASE currentState OF
-		MACHINE_STATE.ABORTING:
-			IF NOT i_PiperModuleInternal.skipsAsync.aborting THEN
-				THIS^.AbortingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.aborting THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-			
-		MACHINE_STATE.BOOTING:
-			IF NOT i_PiperModuleInternal.skipsAsync.booting THEN
-				THIS^.BootingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.booting THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-	
-		MACHINE_STATE.CLEARING:
-			IF NOT i_PiperModuleInternal.skipsAsync.clearing THEN
-				THIS^.ClearingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.clearing THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.COMPLETING:
-			IF NOT i_PiperModuleInternal.skipsAsync.completing THEN
-				THIS^.CompletingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.completing THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-			
-		MACHINE_STATE.EXECUTING:
-			IF NOT i_PiperModuleInternal.skipsAsync.executing THEN
-				THIS^.ExecutingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.executing THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.HOLDING:
-			IF NOT i_PiperModuleInternal.skipsAsync.holding THEN
-				THIS^.HoldingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.holding THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.RESETTING:
-			IF NOT i_PiperModuleInternal.skipsAsync.resetting THEN
-				THIS^.ResettingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.resetting THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.STARTING:
-			IF NOT i_PiperModuleInternal.skipsAsync.starting THEN
-				THIS^.StartingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.starting THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.STOPPING:
-			IF NOT i_PiperModuleInternal.skipsAsync.stopping THEN
-				THIS^.StoppingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.stopping THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.SUSPENDING:
-			IF NOT i_PiperModuleInternal.skipsAsync.suspending THEN
-				THIS^.SuspendingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.suspending THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.UNHOLDING:
-			IF NOT i_PiperModuleInternal.skipsAsync.unholding THEN
-				THIS^.UnholdingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.unholding THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-		MACHINE_STATE.UNSUSPENDING:
-			IF NOT i_PiperModuleInternal.skipsAsync.unsuspending THEN
-				THIS^.UnsuspendingAsync();
-			ELSIF i_PiperModuleInternal.skipsSync.unsuspending THEN
-				i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
-			END_IF
-	
-	END_CASE
+    CASE currentState OF
+        MACHINE_STATE.ABORTING:
+            IF NOT i_PiperModuleInternal.skipsAsync.aborting THEN
+                THIS^.AbortingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.aborting THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.BOOTING:
+            IF NOT i_PiperModuleInternal.skipsAsync.booting THEN
+                THIS^.BootingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.booting THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.CLEARING:
+            IF NOT i_PiperModuleInternal.skipsAsync.clearing THEN
+                THIS^.ClearingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.clearing THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.COMPLETING:
+            IF NOT i_PiperModuleInternal.skipsAsync.completing THEN
+                THIS^.CompletingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.completing THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.EXECUTING:
+            IF NOT i_PiperModuleInternal.skipsAsync.executing THEN
+                THIS^.ExecutingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.executing THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.HOLDING:
+            IF NOT i_PiperModuleInternal.skipsAsync.holding THEN
+                THIS^.HoldingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.holding THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.RESETTING:
+            IF NOT i_PiperModuleInternal.skipsAsync.resetting THEN
+                THIS^.ResettingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.resetting THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.STARTING:
+            IF NOT i_PiperModuleInternal.skipsAsync.starting THEN
+                THIS^.StartingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.starting THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.STOPPING:
+            IF NOT i_PiperModuleInternal.skipsAsync.stopping THEN
+                THIS^.StoppingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.stopping THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.SUSPENDING:
+            IF NOT i_PiperModuleInternal.skipsAsync.suspending THEN
+                THIS^.SuspendingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.suspending THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.UNHOLDING:
+            IF NOT i_PiperModuleInternal.skipsAsync.unholding THEN
+                THIS^.UnholdingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.unholding THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+        MACHINE_STATE.UNSUSPENDING:
+            IF NOT i_PiperModuleInternal.skipsAsync.unsuspending THEN
+                THIS^.UnsuspendingAsync();
+            ELSIF i_PiperModuleInternal.skipsSync.unsuspending THEN
+                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            END_IF
+
+    END_CASE
 END_IF
+
 THIS^.didCallAsync();
 ]]></ST>
       </Implementation>
@@ -312,28 +309,26 @@ THIS^.didCallAsync();
     <Method Name="checkStatus" Id="{86f2cd85-d973-4227-9da3-ee4c3ed52cb2}" FolderPath="PLCopen\">
       <Declaration><![CDATA[METHOD PRIVATE checkStatus : BOOL
 VAR
-	_commandIndex : INT;
-	_anyAbort : BOOL;
-	_anyBusy : BOOL;
-	_anyError : BOOL;
+    _commandIndex : INT;
+    _anyAbort : BOOL;
+    _anyBusy : BOOL;
+    _anyError : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-
 IF NOT i_sequence.statusChecked THEN
-	//We cache the is abort so that we have a consistent 
-	//	status for the whole state
-	i_sequence.isError := i_sequence.activeTasks.isError;
-	i_sequence.isAbort := i_sequence.activeTasks.isAbort;
-	i_sequence.isDone := i_sequence.activeTasks.isDone;
+    //We cache the is abort so that we have a consistent 
+    //	status for the whole state
+    i_sequence.isError := i_sequence.activeTasks.isError;
+    i_sequence.isAbort := i_sequence.activeTasks.isAbort;
+    i_sequence.isDone := i_sequence.activeTasks.isDone;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="Clearing" Id="{7bee31c9-141c-4358-8aca-33cad167ec8c}" FolderPath="PackML\">
       <Declaration><![CDATA[METHOD Clearing : MACHINE_STATE
-
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -343,7 +338,6 @@ i_PiperModuleInternal.skipsSync.clearing := TRUE;]]></ST>
     </Method>
     <Method Name="ClearingAsync" Id="{f3e36a82-f507-456f-b94b-64cf7681213f}" FolderPath="PackMLAsync\">
       <Declaration><![CDATA[METHOD ClearingAsync : MACHINE_STATE
-
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -437,7 +431,6 @@ END_VAR
       <Declaration><![CDATA[METHOD doStep : ENUM
 VAR
 END_VAR
-
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -448,7 +441,7 @@ doStep := _sequence.doStep();]]></ST>
     <Method Name="Errored" Id="{06792213-1d5a-46af-b439-4e2d3ae32a97}" FolderPath="PLCopen\">
       <Declaration><![CDATA[METHOD Errored : BOOL
 VAR_INPUT
-	ID	: INT;
+    ID : INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -479,10 +472,10 @@ i_PiperModuleInternal.skipsAsync.executing := TRUE;
     <Method Name="FB_Init" Id="{44756489-9d5d-4428-aeab-3bb684fa1b7a}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	machineIn : REFERENCE TO Piper;
-//	context : IPluginRunner;
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    machineIn : REFERENCE TO Piper;
+    //	context : IPluginRunner;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -561,7 +554,7 @@ isError := i_sequence.isError;]]></ST>
     <Method Name="onAbort" Id="{516af93a-5d99-4bdf-960c-3294b3cb47e0}" FolderPath="Sequence\callbacks\">
       <Declaration><![CDATA[METHOD onAbort : BOOL
 VAR_INPUT
-	nextStep : ENUM;
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -584,7 +577,7 @@ onEntry := _sequence.onEntry();]]></ST>
     <Method Name="onError" Id="{3514fd98-aade-49a4-8005-f8ef205958d8}" FolderPath="Sequence\callbacks\">
       <Declaration><![CDATA[METHOD onError : BOOL
 VAR_INPUT
-	nextStep : ENUM;	
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -607,7 +600,7 @@ onExit := _sequence.onExit();]]></ST>
     <Method Name="onFailure" Id="{3f9573b7-b22b-45b2-a5b3-ac03573adb91}" FolderPath="Sequence\callbacks\">
       <Declaration><![CDATA[METHOD onFailure : BOOL
 VAR_INPUT
-	nextStep : ENUM;
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -619,7 +612,7 @@ onFailure := _sequence.onFailure(nextStep);]]></ST>
     <Method Name="onSuccess" Id="{2218590e-0706-443f-94cd-47156df6e0ea}" FolderPath="Sequence\callbacks\">
       <Declaration><![CDATA[METHOD onSuccess : BOOL
 VAR_INPUT
-	nextStep : ENUM;
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -631,17 +624,17 @@ onSuccess := _sequence.onSuccess(nextStep);]]></ST>
     <Method Name="RegisterToMachine" Id="{3f378610-e9ba-4ac4-ba6e-e297be53cd18}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD RegisterToMachine : DINT
 VAR_INPUT
-	machineIn : REFERENCE TO Piper;
+    machineIn : REFERENCE TO Piper;
 END_VAR
 VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
-IF NOT i_PiperModuleInternal.registered THEN	
-	i_PiperModuleInternal.registered := TRUE;
-	i_PiperModuleInternal.machine REF= machineIn;
-	i_PiperModuleInternal.machine.RegisterSubmodule( THIS^ );
+IF NOT i_PiperModuleInternal.registered THEN
+    i_PiperModuleInternal.registered := TRUE;
+    i_PiperModuleInternal.machine REF= machineIn;
+    i_PiperModuleInternal.machine.RegisterSubmodule(THIS^);
 END_IF
 ]]></ST>
       </Implementation>
@@ -678,7 +671,7 @@ RequestNumber := i_PiperModuleInternal.requestNumber;]]></ST>
     <Method Name="requestStep" Id="{0e4176a8-3797-4a27-9ba5-06223fd5ae03}" FolderPath="Sequence\StateControl\">
       <Declaration><![CDATA[METHOD requestStep : BOOL
 VAR_INPUT
-	nextStep : ENUM;
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -690,7 +683,7 @@ requestStep := _sequence.requestStep(nextStep);]]></ST>
     <Method Name="requestStepClear" Id="{e97e13d9-69d6-493d-a91f-a645bb23f6bb}" FolderPath="Sequence\StateControl\">
       <Declaration><![CDATA[METHOD requestStepClear : BOOL
 VAR_INPUT
-	nextStep : ENUM;
+    nextStep : ENUM;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -741,8 +734,8 @@ THIS^.CallState();]]></ST>
     <Method Name="sequenceAbort" Id="{382ae541-7c29-4690-b84d-2cbc2d1546e3}" FolderPath="Sequence\StateControl\">
       <Declaration><![CDATA[METHOD sequenceAbort : BOOL
 VAR_INPUT
-	ErrorCode : DINT;
-	ErrorMessage: STRING;
+    ErrorCode : DINT;
+    ErrorMessage : STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -765,20 +758,20 @@ sequenceComplete := _sequence.sequenceComplete();]]></ST>
     <Method Name="sequenceError" Id="{6e2cc27d-5672-4397-b236-2cd116232adf}" FolderPath="Sequence\StateControl\">
       <Declaration><![CDATA[METHOD sequenceError : BOOL
 VAR_INPUT
-	ErrorCode : DINT;
-	ErrorMessage: STRING;
+    ErrorCode : DINT;
+    ErrorMessage : STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-sequenceError := _sequence.sequenceError( ErrorCode, ErrorMessage);]]></ST>
+sequenceError := _sequence.sequenceError(ErrorCode, ErrorMessage);]]></ST>
       </Implementation>
     </Method>
     <Method Name="setContext" Id="{f6595b8f-ae99-4b2e-85fc-1c2a518ea4e4}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD setContext : BOOL
 VAR_INPUT
-	context : IPluginRunner;	
+    context : IPluginRunner;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -804,18 +797,18 @@ _sequence.startSequence();]]></ST>
     <Method Name="Start" Id="{0fbe109f-325f-4002-b69e-be08f70d2754}" FolderPath="PLCopen\">
       <Declaration><![CDATA[METHOD Start : BOOL
 VAR_INPUT
-	Command	: IPLCOpenCommand;
+    Command : IPLCOpenCommand;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 IF i_sequence.activeTasks.Start(Command) = 0 THEN
-	//TODO: All out of commands.. Throw an error
-	sequenceError( 10000, 'Too Many Commands in 1 step');
-	Start :=  FALSE;
+    //TODO: All out of commands.. Throw an error
+    sequenceError(10000, 'Too Many Commands in 1 step');
+    Start := FALSE;
 ELSE
-	Start :=  TRUE;	
+    Start := TRUE;
 END_IF
 ]]></ST>
       </Implementation>
@@ -945,7 +938,6 @@ i_PiperModuleInternal.skipsAsync.unholding := TRUE;
     </Method>
     <Method Name="Unsuspending" Id="{d7a887dc-24e3-45a9-bfab-9b8c964676e6}" FolderPath="PackML\">
       <Declaration><![CDATA[METHOD Unsuspending : MACHINE_STATE
-
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -955,7 +947,6 @@ i_PiperModuleInternal.skipsSync.unsuspending := TRUE;]]></ST>
     </Method>
     <Method Name="UnsuspendingAsync" Id="{b8341822-21e7-482e-b82c-93c76e5c31dc}" FolderPath="PackMLAsync\">
       <Declaration><![CDATA[METHOD UnsuspendingAsync : MACHINE_STATE
-
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
