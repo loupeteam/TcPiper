@@ -53,8 +53,8 @@ END_VAR
       <Declaration><![CDATA[METHOD CompletingAsync : MACHINE_STATE
 ]]></Declaration>
     </Method>
-    <Property Name="currentState" Id="{ab1ec822-8393-4376-afb7-1a080b29213a}" FolderPath="Handshake\">
-      <Declaration><![CDATA[PROPERTY currentState : MACHINE_STATE]]></Declaration>
+    <Property Name="CurrentState" Id="{ab1ec822-8393-4376-afb7-1a080b29213a}" FolderPath="Handshake\">
+      <Declaration><![CDATA[PROPERTY CurrentState : MACHINE_STATE]]></Declaration>
       <Get Name="Get" Id="{0ead9c91-a998-4249-a9e9-14d3affaefd4}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
@@ -94,9 +94,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="requestedSubstate" Id="{e2364936-16e8-4c1a-b284-038a93d87878}" FolderPath="Handshake\">
+    <Property Name="RequestedSubstate" Id="{e2364936-16e8-4c1a-b284-038a93d87878}" FolderPath="Handshake\">
       <Declaration><![CDATA[{warning 'add property implementation'}
-PROPERTY requestedSubstate : ULINT
+PROPERTY RequestedSubstate : ULINT
 ]]></Declaration>
       <Get Name="Get" Id="{ec101671-53eb-4978-b1ae-a023af1dd40c}">
         <Declaration><![CDATA[]]></Declaration>

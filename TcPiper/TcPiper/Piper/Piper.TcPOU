@@ -295,21 +295,21 @@ IF packMLStateIsTransition() THEN
     FOR i := 0 TO Submodules.countSubmodules - 1 DO
         currentModule := Submodules.submodules[i];
 
-        CASE currentModule.response OF
+        CASE currentModule.Response OF
             RESPONSE_STATE.UNDEFINED,
                 RESPONSE_STATE.BUSY:
                 Submodules.busyModules[busy] := currentModule;
 
                 // If the module is requesting a substate, it isn't busy, it's waiting
-                IF currentModule.requestedSubstate <> 0 THEN
+                IF currentModule.RequestedSubstate <> 0 THEN
 
                     // If it is requesting a lower substate than what is currently being requested
                     // it wins and should be called next
-                    IF currentModule.requestedSubstate < substateRequest AND currentModule.requestedSubstate > Substate THEN
+                    IF currentModule.RequestedSubstate < substateRequest AND currentModule.RequestedSubstate > Substate THEN
 
-                        substateRequest := currentModule.requestedSubstate;
+                        substateRequest := currentModule.RequestedSubstate;
 
-                    ELSIF currentModule.requestedSubstate = Substate THEN
+                    ELSIF currentModule.RequestedSubstate = Substate THEN
 
                         busy := busy + 1;
 
