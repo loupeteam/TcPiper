@@ -127,7 +127,7 @@ END_IF
 
 THIS^.i_PiperModuleInternal.previousSubstate := THIS^.currentSubstate;
 
-IF response <> RESPONSE_STATE.DONE AND requestedSubstate <= currentSubstate THEN
+IF Response <> RESPONSE_STATE.DONE AND requestedSubstate <= currentSubstate THEN
     CASE currentState OF
         MACHINE_STATE.ABORTING:
             IF NOT i_PiperModuleInternal.skipsSync.aborting THEN
@@ -213,7 +213,7 @@ END_IF
 
 THIS^.i_PiperModuleInternal.previousSubstateAsync := THIS^.currentSubstate;
 
-IF response <> RESPONSE_STATE.DONE AND requestedSubstate <= currentSubstate THEN
+IF Response <> RESPONSE_STATE.DONE AND requestedSubstate <= currentSubstate THEN
     CASE currentState OF
         MACHINE_STATE.ABORTING:
             IF NOT i_PiperModuleInternal.skipsAsync.aborting THEN
@@ -709,8 +709,8 @@ i_PiperModuleInternal.skipsAsync.resetting := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="response" Id="{8eb07caf-319e-4b96-aa33-5592ef7d8262}" FolderPath="Handshake\">
-      <Declaration><![CDATA[PROPERTY response : RESPONSE_STATE]]></Declaration>
+    <Property Name="Response" Id="{8eb07caf-319e-4b96-aa33-5592ef7d8262}" FolderPath="Handshake\">
+      <Declaration><![CDATA[PROPERTY Response : RESPONSE_STATE]]></Declaration>
       <Get Name="Get" Id="{403fda28-4e41-44b0-8df2-3a36eb884c0a}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -718,7 +718,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-response := i_PiperModuleInternal.response;]]></ST>
+Response := i_PiperModuleInternal.response;]]></ST>
         </Implementation>
       </Get>
     </Property>
