@@ -59,14 +59,14 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Method Name="didCall" Id="{0a5ed2d3-ceec-4a1f-a4b3-cf86c78200f7}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD didCall : BOOL
+    <Method Name="DidCall" Id="{0a5ed2d3-ceec-4a1f-a4b3-cf86c78200f7}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD DidCall : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="didCallAsync" Id="{4e8a607c-e9e9-49a8-b79b-39c3eddd23ea}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD didCallAsync : BOOL
+    <Method Name="DidCallAsync" Id="{4e8a607c-e9e9-49a8-b79b-39c3eddd23ea}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD DidCallAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -119,15 +119,15 @@ PROPERTY RequestedSubstate : ULINT
       <Declaration><![CDATA[METHOD Run : BOOL
 ]]></Declaration>
     </Method>
-    <Method Name="setContext" Id="{41d302b7-09fc-495b-b347-af87fcdc1c1a}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD setContext : BOOL
+    <Method Name="SetContext" Id="{41d302b7-09fc-495b-b347-af87fcdc1c1a}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD SetContext : BOOL
 VAR_INPUT
     context : IPluginRunner;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="setState" Id="{bb8b2352-cd8c-4e74-af69-ee7d09ca216b}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD setState : BOOL
+    <Method Name="SetState" Id="{bb8b2352-cd8c-4e74-af69-ee7d09ca216b}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD SetState : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -179,14 +179,14 @@ END_VAR
       <Declaration><![CDATA[METHOD UnsuspendingAsync : MACHINE_STATE
 ]]></Declaration>
     </Method>
-    <Method Name="willCall" Id="{e0e884c0-97fa-4141-a8b6-fcf6a274136a}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD willCall : BOOL
+    <Method Name="WillCall" Id="{e0e884c0-97fa-4141-a8b6-fcf6a274136a}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillCall : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="willCallAsync" Id="{44fa5592-9dbd-464e-bbb5-38e9bc21a877}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD willCallAsync : BOOL
+    <Method Name="WillCallAsync" Id="{44fa5592-9dbd-464e-bbb5-38e9bc21a877}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillCallAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

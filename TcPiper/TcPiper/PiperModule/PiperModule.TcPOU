@@ -23,8 +23,8 @@ END_VAR
     </Folder>
     <Folder Name="Setup" Id="{eeb68776-0e62-46f1-9ad5-da0f6ad004d6}" />
     <Folder Name="StepManager" Id="{48dc10ce-7eca-4656-a440-fb808be36402}" />
-    <Method Name="_requestStep" Id="{f4f6af93-0cb3-42b4-9ca9-21e1cca56843}" FolderPath="StepManager\">
-      <Declaration><![CDATA[METHOD _requestStep : BOOL
+    <Method Name="_RequestStep" Id="{f4f6af93-0cb3-42b4-9ca9-21e1cca56843}" FolderPath="StepManager\">
+      <Declaration><![CDATA[METHOD _RequestStep : BOOL
 VAR_INPUT
     nextStep : ENUM;
 END_VAR
@@ -38,16 +38,16 @@ i_PiperModuleInternal.requestNumber := i_PiperModuleInternal.requestNumber + 1;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="_reset" Id="{e5c4fbde-1df8-48bc-9d3c-c9ad0b85ba57}" FolderPath="StepManager\">
-      <Declaration><![CDATA[METHOD _reset : BOOL
+    <Method Name="_Reset" Id="{e5c4fbde-1df8-48bc-9d3c-c9ad0b85ba57}" FolderPath="StepManager\">
+      <Declaration><![CDATA[METHOD _Reset : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="_sequenceComplete" Id="{93d7990e-83cd-41da-874b-7bcab730bc0b}" FolderPath="StepManager\">
-      <Declaration><![CDATA[METHOD _sequenceComplete : BOOL
+    <Method Name="_SequenceComplete" Id="{93d7990e-83cd-41da-874b-7bcab730bc0b}" FolderPath="StepManager\">
+      <Declaration><![CDATA[METHOD _SequenceComplete : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -56,8 +56,8 @@ i_PiperModuleInternal.requestSubstate := 0;
 i_PiperModuleInternal.response := RESPONSE_STATE.DONE;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="_sequenceError" Id="{d8c3afc4-de9e-411e-b9c4-728f5280910b}" FolderPath="StepManager\">
-      <Declaration><![CDATA[METHOD _sequenceError : BOOL
+    <Method Name="_SequenceError" Id="{d8c3afc4-de9e-411e-b9c4-728f5280910b}" FolderPath="StepManager\">
+      <Declaration><![CDATA[METHOD _SequenceError : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
@@ -119,10 +119,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-THIS^.willCall();
+THIS^.WillCall();
 
 IF THIS^.i_PiperModuleInternal.previousSubstate <> THIS^.CurrentSubstate THEN
-    THIS^.willChangeSubstate();
+    THIS^.WillChangeSubstate();
 END_IF
 
 THIS^.i_PiperModuleInternal.previousSubstate := THIS^.CurrentSubstate;
@@ -192,7 +192,7 @@ IF Response <> RESPONSE_STATE.DONE AND RequestedSubstate <= CurrentSubstate THEN
     END_CASE
 END_IF
 
-THIS^.didCall();
+THIS^.DidCall();
 ]]></ST>
       </Implementation>
     </Method>
@@ -205,10 +205,10 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-THIS^.willCallAsync();
+THIS^.WillCallAsync();
 
 IF THIS^.i_PiperModuleInternal.previousSubstateAsync <> THIS^.CurrentSubstate THEN
-    THIS^.willChangeSubstateAsync();
+    THIS^.WillChangeSubstateAsync();
 END_IF
 
 THIS^.i_PiperModuleInternal.previousSubstateAsync := THIS^.CurrentSubstate;
@@ -302,7 +302,7 @@ IF Response <> RESPONSE_STATE.DONE AND RequestedSubstate <= CurrentSubstate THEN
     END_CASE
 END_IF
 
-THIS^.didCallAsync();
+THIS^.DidCallAsync();
 ]]></ST>
       </Implementation>
     </Method>
@@ -407,8 +407,8 @@ CurrentSubstate := i_PiperModuleInternal.machine.Substate;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="didCall" Id="{5d73cdfc-bb8e-4ce5-9441-fb7bff95dddb}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD didCall : BOOL
+    <Method Name="DidCall" Id="{5d73cdfc-bb8e-4ce5-9441-fb7bff95dddb}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD DidCall : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -417,8 +417,8 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="didCallAsync" Id="{1c612e8f-0b57-4feb-b3a0-8272535d9fbf}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD didCallAsync : BOOL
+    <Method Name="DidCallAsync" Id="{1c612e8f-0b57-4feb-b3a0-8272535d9fbf}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD DidCallAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -427,15 +427,15 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="doStep" Id="{2460656a-9a34-4d02-b4bf-86513714621e}" FolderPath="Sequence\">
-      <Declaration><![CDATA[METHOD doStep : ENUM
+    <Method Name="DoStep" Id="{2460656a-9a34-4d02-b4bf-86513714621e}" FolderPath="Sequence\">
+      <Declaration><![CDATA[METHOD DoStep : ENUM
 VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-doStep := _sequence.doStep();]]></ST>
+DoStep := _sequence.doStep();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Errored" Id="{06792213-1d5a-46af-b439-4e2d3ae32a97}" FolderPath="PLCopen\">
@@ -586,19 +586,19 @@ END_VAR
 OnError := _sequence.OnError(nextStep);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="onExit" Id="{73e201fe-6ff5-45dc-ba48-16917ae7f7e3}" FolderPath="Sequence\callbacks\">
-      <Declaration><![CDATA[METHOD onExit : BOOL
+    <Method Name="OnExit" Id="{73e201fe-6ff5-45dc-ba48-16917ae7f7e3}" FolderPath="Sequence\callbacks\">
+      <Declaration><![CDATA[METHOD OnExit : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-onExit := _sequence.onExit();]]></ST>
+OnExit := _sequence.onExit();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="onFailure" Id="{3f9573b7-b22b-45b2-a5b3-ac03573adb91}" FolderPath="Sequence\callbacks\">
-      <Declaration><![CDATA[METHOD onFailure : BOOL
+    <Method Name="OnFailure" Id="{3f9573b7-b22b-45b2-a5b3-ac03573adb91}" FolderPath="Sequence\callbacks\">
+      <Declaration><![CDATA[METHOD OnFailure : BOOL
 VAR_INPUT
     nextStep : ENUM;
 END_VAR
@@ -606,11 +606,11 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-onFailure := _sequence.onFailure(nextStep);]]></ST>
+OnFailure := _sequence.onFailure(nextStep);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="onSuccess" Id="{2218590e-0706-443f-94cd-47156df6e0ea}" FolderPath="Sequence\callbacks\">
-      <Declaration><![CDATA[METHOD onSuccess : BOOL
+    <Method Name="OnSuccess" Id="{2218590e-0706-443f-94cd-47156df6e0ea}" FolderPath="Sequence\callbacks\">
+      <Declaration><![CDATA[METHOD OnSuccess : BOOL
 VAR_INPUT
     nextStep : ENUM;
 END_VAR
@@ -618,7 +618,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-onSuccess := _sequence.onSuccess(nextStep);]]></ST>
+OnSuccess := _sequence.onSuccess(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RegisterToMachine" Id="{3f378610-e9ba-4ac4-ba6e-e297be53cd18}" FolderPath="Setup\">
@@ -668,8 +668,8 @@ RequestNumber := i_PiperModuleInternal.requestNumber;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="requestStep" Id="{0e4176a8-3797-4a27-9ba5-06223fd5ae03}" FolderPath="Sequence\StateControl\">
-      <Declaration><![CDATA[METHOD requestStep : BOOL
+    <Method Name="RequestStep" Id="{0e4176a8-3797-4a27-9ba5-06223fd5ae03}" FolderPath="Sequence\StateControl\">
+      <Declaration><![CDATA[METHOD RequestStep : BOOL
 VAR_INPUT
     nextStep : ENUM;
 END_VAR
@@ -677,11 +677,11 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-requestStep := _sequence.requestStep(nextStep);]]></ST>
+RequestStep := _sequence.requestStep(nextStep);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="requestStepClear" Id="{e97e13d9-69d6-493d-a91f-a645bb23f6bb}" FolderPath="Sequence\StateControl\">
-      <Declaration><![CDATA[METHOD requestStepClear : BOOL
+    <Method Name="RequestStepClear" Id="{e97e13d9-69d6-493d-a91f-a645bb23f6bb}" FolderPath="Sequence\StateControl\">
+      <Declaration><![CDATA[METHOD RequestStepClear : BOOL
 VAR_INPUT
     nextStep : ENUM;
 END_VAR
@@ -689,7 +689,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-requestStepClear := _sequence.requestStepClear(nextStep);]]></ST>
+RequestStepClear := _sequence.requestStepClear(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Resetting" Id="{d15239fc-c709-4b5f-b06c-c65056e3acbe}" FolderPath="PackML\">
@@ -731,8 +731,8 @@ Response := i_PiperModuleInternal.response;]]></ST>
 THIS^.CallState();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="sequenceAbort" Id="{382ae541-7c29-4690-b84d-2cbc2d1546e3}" FolderPath="Sequence\StateControl\">
-      <Declaration><![CDATA[METHOD sequenceAbort : BOOL
+    <Method Name="SequenceAbort" Id="{382ae541-7c29-4690-b84d-2cbc2d1546e3}" FolderPath="Sequence\StateControl\">
+      <Declaration><![CDATA[METHOD SequenceAbort : BOOL
 VAR_INPUT
     ErrorCode : DINT;
     ErrorMessage : STRING;
@@ -741,22 +741,22 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-sequenceAbort := _sequence.sequenceAbort(ErrorCode, ErrorMessage);]]></ST>
+SequenceAbort := _sequence.sequenceAbort(ErrorCode, ErrorMessage);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="sequenceComplete" Id="{e7a11495-e96e-44f3-b8dd-fb20c40130d2}" FolderPath="Sequence\StateControl\">
-      <Declaration><![CDATA[METHOD sequenceComplete : BOOL
+    <Method Name="SequenceComplete" Id="{e7a11495-e96e-44f3-b8dd-fb20c40130d2}" FolderPath="Sequence\StateControl\">
+      <Declaration><![CDATA[METHOD SequenceComplete : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-sequenceComplete := _sequence.sequenceComplete();]]></ST>
+SequenceComplete := _sequence.sequenceComplete();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="sequenceError" Id="{6e2cc27d-5672-4397-b236-2cd116232adf}" FolderPath="Sequence\StateControl\">
-      <Declaration><![CDATA[METHOD sequenceError : BOOL
+    <Method Name="SequenceError" Id="{6e2cc27d-5672-4397-b236-2cd116232adf}" FolderPath="Sequence\StateControl\">
+      <Declaration><![CDATA[METHOD SequenceError : BOOL
 VAR_INPUT
     ErrorCode : DINT;
     ErrorMessage : STRING;
@@ -765,11 +765,11 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-sequenceError := _sequence.sequenceError(ErrorCode, ErrorMessage);]]></ST>
+SequenceError := _sequence.sequenceError(ErrorCode, ErrorMessage);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="setContext" Id="{f6595b8f-ae99-4b2e-85fc-1c2a518ea4e4}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD setContext : BOOL
+    <Method Name="SetContext" Id="{f6595b8f-ae99-4b2e-85fc-1c2a518ea4e4}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD SetContext : BOOL
 VAR_INPUT
     context : IPluginRunner;
 END_VAR
@@ -781,8 +781,8 @@ context.RegisterPlugin(THIS^);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="setState" Id="{86fb48a2-6e78-48ff-9d41-f8e50cfe20ac}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD setState : BOOL
+    <Method Name="SetState" Id="{86fb48a2-6e78-48ff-9d41-f8e50cfe20ac}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD SetState : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -805,7 +805,7 @@ END_VAR
 
 IF i_sequence.activeTasks.Start(Command) = 0 THEN
     //TODO: All out of commands.. Throw an error
-    sequenceError(10000, 'Too Many Commands in 1 step');
+    SequenceError(10000, 'Too Many Commands in 1 step');
     Start := FALSE;
 ELSE
     Start := TRUE;
@@ -830,13 +830,13 @@ i_PiperModuleInternal.skipsAsync.starting := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="startSequence" Id="{cf35b5b2-fbce-4fdb-a962-ec55492f889b}" FolderPath="Sequence\">
-      <Declaration><![CDATA[METHOD startSequence : BOOL
+    <Method Name="StartSequence" Id="{cf35b5b2-fbce-4fdb-a962-ec55492f889b}" FolderPath="Sequence\">
+      <Declaration><![CDATA[METHOD StartSequence : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-requestStep(0);]]></ST>
+RequestStep(0);]]></ST>
       </Implementation>
     </Method>
     <Method Name="StateCompletePending" Id="{3c3f8f98-6626-4764-a216-4b263314b59d}" FolderPath="Handshake\">
@@ -955,8 +955,8 @@ i_PiperModuleInternal.skipsAsync.unsuspending := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="willCall" Id="{e88ecae5-093b-4df2-8a31-55fa62529e6c}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD willCall : BOOL
+    <Method Name="WillCall" Id="{e88ecae5-093b-4df2-8a31-55fa62529e6c}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillCall : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -965,8 +965,8 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="willCallAsync" Id="{3da853bb-6490-4d04-a4d1-57912c1a0048}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD willCallAsync : BOOL
+    <Method Name="WillCallAsync" Id="{3da853bb-6490-4d04-a4d1-57912c1a0048}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillCallAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -975,8 +975,8 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="willChangeSubstate" Id="{7dcc840a-b340-4d0d-8cb4-fe075b5c4c05}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD willChangeSubstate : BOOL
+    <Method Name="WillChangeSubstate" Id="{7dcc840a-b340-4d0d-8cb4-fe075b5c4c05}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillChangeSubstate : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -985,8 +985,8 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="willChangeSubstateAsync" Id="{538c49c4-4889-4a9f-b501-4dace4dcbf3f}" FolderPath="Setup\">
-      <Declaration><![CDATA[METHOD willChangeSubstateAsync : BOOL
+    <Method Name="WillChangeSubstateAsync" Id="{538c49c4-4889-4a9f-b501-4dace4dcbf3f}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillChangeSubstateAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

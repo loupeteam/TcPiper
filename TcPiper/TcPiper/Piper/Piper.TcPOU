@@ -225,7 +225,7 @@ FOR i := 0 TO Submodules.countSubmodules - 1 DO
 
     currentModule := Submodules.submodules[i];
 
-    currentModule.setState();
+    currentModule.SetState();
 
 END_FOR
 ]]></ST>
