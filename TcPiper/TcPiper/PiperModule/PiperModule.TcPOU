@@ -6,7 +6,7 @@ VAR
     i_PiperModuleInternal : PiperModuleInternal;
     i_sequence : SequenceType;
     _sequence : Sequencer(THIS^);
-    command : PLCOpenCall;
+    command : PLCopenCall;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -797,7 +797,7 @@ _sequence.startSequence();]]></ST>
     <Method Name="Start" Id="{0fbe109f-325f-4002-b69e-be08f70d2754}" FolderPath="PLCopen\">
       <Declaration><![CDATA[METHOD Start : BOOL
 VAR_INPUT
-    Command : IPLCOpenCommand;
+    Command : IPLCopenCommand;
 END_VAR
 ]]></Declaration>
       <Implementation>

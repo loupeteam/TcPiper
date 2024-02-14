@@ -103,7 +103,7 @@ _Error := FALSE;
       </Implementation>
     </Method>
     <Property Name="status" Id="{34f306bb-0f78-474b-ae87-31c2cd249735}">
-      <Declaration><![CDATA[PROPERTY status : PLCOpenStatusBase]]></Declaration>
+      <Declaration><![CDATA[PROPERTY status : PLCopenStatusBase]]></Declaration>
       <Get Name="Get" Id="{1ccbce53-2a69-4d36-bbbc-ebe695682689}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -113,15 +113,15 @@ END_VAR
 
 IF _Error THEN
 
-    status := PLCOpenStatusBase.ERROR;
+    status := PLCopenStatusBase.ERROR;
 
 ELSIF _Busy THEN
 
-    status := PLCOpenStatusBase.BUSY;
+    status := PLCopenStatusBase.BUSY;
 
 ELSE
 
-    status := PLCOpenStatusBase.ERR_OK;
+    status := PLCopenStatusBase.ERR_OK;
 
 END_IF]]></ST>
         </Implementation>
