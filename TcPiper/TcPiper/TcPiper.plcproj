@@ -19,7 +19,7 @@
     <Company>Loupe</Company>
     <Released>false</Released>
     <Title>TcPiper</Title>
-    <ProjectVersion>0.0.2</ProjectVersion>
+    <ProjectVersion>0.0.3</ProjectVersion>
     <Author>Loupe</Author>
     <CombineIds>true</CombineIds>
     <LibraryCategories>
@@ -97,7 +97,6 @@
     <Folder Include="Test" />
     <Folder Include="Piper" />
     <Folder Include="Test\Fixtures" />
-    <Folder Include="VISUs" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">

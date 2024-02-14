@@ -8,7 +8,7 @@
     <Folder Name="Handshake" Id="{bfeb6266-89a6-4954-9a8c-11f58790206b}" />
     <Folder Name="PackML" Id="{1c1d730d-e92c-4434-bb9f-84b4c155a076}" />
     <Folder Name="PackMLAsync" Id="{ec4ba5bf-12eb-47b8-8044-3c4f8b199ed3}" />
-    <Folder Name="setup" Id="{c2d41e69-f75d-4e21-b18b-c749de73c614}" />
+    <Folder Name="Setup" Id="{c2d41e69-f75d-4e21-b18b-c749de73c614}" />
     <Method Name="Aborting" Id="{31bef660-7729-4f0b-ac59-99d5c11ccaec}" FolderPath="PackML\">
       <Declaration><![CDATA[METHOD Aborting : MACHINE_STATE
 ]]></Declaration>
@@ -24,14 +24,14 @@
       <Declaration><![CDATA[METHOD BootingAsync : MACHINE_STATE
 ]]></Declaration>
     </Method>
-    <Method Name="CallState" Id="{547db319-98cd-43be-bfbc-09df5283103d}" FolderPath="setup\">
+    <Method Name="CallState" Id="{547db319-98cd-43be-bfbc-09df5283103d}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD CallState : BOOL
 VAR_INPUT
 
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="CallStateAsync" Id="{4b455c8b-4697-405e-864a-681481284628}" FolderPath="setup\">
+    <Method Name="CallStateAsync" Id="{4b455c8b-4697-405e-864a-681481284628}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD CallStateAsync : BOOL
 VAR_INPUT
 END_VAR
@@ -53,20 +53,20 @@ END_VAR
       <Declaration><![CDATA[METHOD CompletingAsync : MACHINE_STATE
 ]]></Declaration>
     </Method>
-    <Property Name="currentState" Id="{ab1ec822-8393-4376-afb7-1a080b29213a}" FolderPath="Handshake\">
-      <Declaration><![CDATA[PROPERTY currentState : MACHINE_STATE]]></Declaration>
+    <Property Name="CurrentState" Id="{ab1ec822-8393-4376-afb7-1a080b29213a}" FolderPath="Handshake\">
+      <Declaration><![CDATA[PROPERTY CurrentState : MACHINE_STATE]]></Declaration>
       <Get Name="Get" Id="{0ead9c91-a998-4249-a9e9-14d3affaefd4}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Method Name="didCall" Id="{0a5ed2d3-ceec-4a1f-a4b3-cf86c78200f7}" FolderPath="setup\">
-      <Declaration><![CDATA[METHOD didCall : BOOL
+    <Method Name="DidCall" Id="{0a5ed2d3-ceec-4a1f-a4b3-cf86c78200f7}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD DidCall : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="didCallAsync" Id="{4e8a607c-e9e9-49a8-b79b-39c3eddd23ea}" FolderPath="setup\">
-      <Declaration><![CDATA[METHOD didCallAsync : BOOL
+    <Method Name="DidCallAsync" Id="{4e8a607c-e9e9-49a8-b79b-39c3eddd23ea}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD DidCallAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -87,16 +87,16 @@ END_VAR
       <Declaration><![CDATA[METHOD HoldingAsync : MACHINE_STATE
 ]]></Declaration>
     </Method>
-    <Method Name="RegisterToMachine" Id="{22393572-a1b0-41ae-8f7d-0c9e9c9d1a74}" FolderPath="setup\">
+    <Method Name="RegisterToMachine" Id="{22393572-a1b0-41ae-8f7d-0c9e9c9d1a74}" FolderPath="Setup\">
       <Declaration><![CDATA[METHOD RegisterToMachine : DINT
 VAR_INPUT
     machineIn : REFERENCE TO Piper;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="requestedSubstate" Id="{e2364936-16e8-4c1a-b284-038a93d87878}" FolderPath="Handshake\">
+    <Property Name="RequestedSubstate" Id="{e2364936-16e8-4c1a-b284-038a93d87878}" FolderPath="Handshake\">
       <Declaration><![CDATA[{warning 'add property implementation'}
-PROPERTY requestedSubstate : ULINT
+PROPERTY RequestedSubstate : ULINT
 ]]></Declaration>
       <Get Name="Get" Id="{ec101671-53eb-4978-b1ae-a023af1dd40c}">
         <Declaration><![CDATA[]]></Declaration>
@@ -109,8 +109,8 @@ PROPERTY requestedSubstate : ULINT
     <Method Name="ResettingAsync" Id="{70243386-61db-41a6-a658-e57a3e14904f}" FolderPath="PackMLAsync\">
       <Declaration><![CDATA[METHOD ResettingAsync : BOOL]]></Declaration>
     </Method>
-    <Property Name="response" Id="{5aee3df5-854d-4946-a55e-2d702773392a}" FolderPath="Handshake\">
-      <Declaration><![CDATA[PROPERTY response : RESPONSE_STATE]]></Declaration>
+    <Property Name="Response" Id="{5aee3df5-854d-4946-a55e-2d702773392a}" FolderPath="Handshake\">
+      <Declaration><![CDATA[PROPERTY Response : RESPONSE_STATE]]></Declaration>
       <Get Name="Get" Id="{17a9ae0e-bc4f-4aa6-9d7a-68951e95c80f}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
@@ -119,15 +119,15 @@ PROPERTY requestedSubstate : ULINT
       <Declaration><![CDATA[METHOD Run : BOOL
 ]]></Declaration>
     </Method>
-    <Method Name="setContext" Id="{41d302b7-09fc-495b-b347-af87fcdc1c1a}" FolderPath="setup\">
-      <Declaration><![CDATA[METHOD setContext : BOOL
+    <Method Name="SetContext" Id="{41d302b7-09fc-495b-b347-af87fcdc1c1a}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD SetContext : BOOL
 VAR_INPUT
     context : IPluginRunner;
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="setState" Id="{bb8b2352-cd8c-4e74-af69-ee7d09ca216b}" FolderPath="setup\">
-      <Declaration><![CDATA[METHOD setState : BOOL
+    <Method Name="SetState" Id="{bb8b2352-cd8c-4e74-af69-ee7d09ca216b}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD SetState : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -179,14 +179,14 @@ END_VAR
       <Declaration><![CDATA[METHOD UnsuspendingAsync : MACHINE_STATE
 ]]></Declaration>
     </Method>
-    <Method Name="willCall" Id="{e0e884c0-97fa-4141-a8b6-fcf6a274136a}" FolderPath="setup\">
-      <Declaration><![CDATA[METHOD willCall : BOOL
+    <Method Name="WillCall" Id="{e0e884c0-97fa-4141-a8b6-fcf6a274136a}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillCall : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="willCallAsync" Id="{44fa5592-9dbd-464e-bbb5-38e9bc21a877}" FolderPath="setup\">
-      <Declaration><![CDATA[METHOD willCallAsync : BOOL
+    <Method Name="WillCallAsync" Id="{44fa5592-9dbd-464e-bbb5-38e9bc21a877}" FolderPath="Setup\">
+      <Declaration><![CDATA[METHOD WillCallAsync : BOOL
 VAR_INPUT
 END_VAR
 ]]></Declaration>

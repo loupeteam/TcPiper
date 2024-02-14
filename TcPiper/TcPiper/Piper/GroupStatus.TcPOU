@@ -40,8 +40,8 @@ _Error := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="isBusy" Id="{8b172ddf-04e9-4236-806d-134b8ae3c542}">
-      <Declaration><![CDATA[PROPERTY isBusy : BOOL]]></Declaration>
+    <Property Name="IsBusy" Id="{8b172ddf-04e9-4236-806d-134b8ae3c542}">
+      <Declaration><![CDATA[PROPERTY IsBusy : BOOL]]></Declaration>
       <Get Name="Get" Id="{55a7db60-84c5-4687-ab04-0cf56c15f341}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -49,12 +49,12 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-isBusy := NOT _Error AND _Busy;]]></ST>
+IsBusy := NOT _Error AND _Busy;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="isDone" Id="{c0071902-5599-4ac5-a0b2-7e49d560bd64}">
-      <Declaration><![CDATA[PROPERTY isDone : BOOL]]></Declaration>
+    <Property Name="IsDone" Id="{c0071902-5599-4ac5-a0b2-7e49d560bd64}">
+      <Declaration><![CDATA[PROPERTY IsDone : BOOL]]></Declaration>
       <Get Name="Get" Id="{dcf7e083-dee0-44d7-b7f1-f038315678db}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -62,12 +62,12 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-isDone := NOT _Error AND NOT _Busy;]]></ST>
+IsDone := NOT _Error AND NOT _Busy;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Property Name="isError" Id="{e4413f7f-b554-4b5c-8287-095be611bfa9}">
-      <Declaration><![CDATA[PROPERTY isError : BOOL]]></Declaration>
+    <Property Name="IsError" Id="{e4413f7f-b554-4b5c-8287-095be611bfa9}">
+      <Declaration><![CDATA[PROPERTY IsError : BOOL]]></Declaration>
       <Get Name="Get" Id="{0593bd48-e708-4565-9399-9aa14aee0b35}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -75,7 +75,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-isError := _Error;]]></ST>
+IsError := _Error;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -102,8 +102,8 @@ _Error := FALSE;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="status" Id="{34f306bb-0f78-474b-ae87-31c2cd249735}">
-      <Declaration><![CDATA[PROPERTY status : PLCOpenStatusBase]]></Declaration>
+    <Property Name="Status" Id="{34f306bb-0f78-474b-ae87-31c2cd249735}">
+      <Declaration><![CDATA[PROPERTY Status : PLCopenStatusBase]]></Declaration>
       <Get Name="Get" Id="{1ccbce53-2a69-4d36-bbbc-ebe695682689}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -113,15 +113,15 @@ END_VAR
 
 IF _Error THEN
 
-    status := PLCOpenStatusBase.ERROR;
+    Status := PLCopenStatusBase.ERROR;
 
 ELSIF _Busy THEN
 
-    status := PLCOpenStatusBase.BUSY;
+    Status := PLCopenStatusBase.BUSY;
 
 ELSE
 
-    status := PLCOpenStatusBase.ERR_OK;
+    Status := PLCopenStatusBase.ERR_OK;
 
 END_IF]]></ST>
         </Implementation>

@@ -39,7 +39,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-THIS^.setContext(taskFB);
+THIS^.SetContext(taskFB);
 task REF= taskFB;]]></ST>
       </Implementation>
     </Method>
