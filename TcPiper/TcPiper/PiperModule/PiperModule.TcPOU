@@ -435,7 +435,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-DoStep := _sequence.doStep();]]></ST>
+DoStep := _sequence.DoStep();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Errored" Id="{06792213-1d5a-46af-b439-4e2d3ae32a97}" FolderPath="PLCopen\">
@@ -560,7 +560,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnAbort := _sequence.onAbort(nextStep);]]></ST>
+OnAbort := _sequence.OnAbort(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnEntry" Id="{6689b526-5baa-4f23-b571-4ec7663af97d}" FolderPath="Sequence\callbacks\">
@@ -571,7 +571,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnEntry := _sequence.onEntry();]]></ST>
+OnEntry := _sequence.OnEntry();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnError" Id="{3514fd98-aade-49a4-8005-f8ef205958d8}" FolderPath="Sequence\callbacks\">
@@ -594,7 +594,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnExit := _sequence.onExit();]]></ST>
+OnExit := _sequence.OnExit();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnFailure" Id="{3f9573b7-b22b-45b2-a5b3-ac03573adb91}" FolderPath="Sequence\callbacks\">
@@ -606,7 +606,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnFailure := _sequence.onFailure(nextStep);]]></ST>
+OnFailure := _sequence.OnFailure(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnSuccess" Id="{2218590e-0706-443f-94cd-47156df6e0ea}" FolderPath="Sequence\callbacks\">
@@ -618,7 +618,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnSuccess := _sequence.onSuccess(nextStep);]]></ST>
+OnSuccess := _sequence.OnSuccess(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RegisterToMachine" Id="{3f378610-e9ba-4ac4-ba6e-e297be53cd18}" FolderPath="Setup\">
