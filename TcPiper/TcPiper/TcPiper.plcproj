@@ -40,6 +40,10 @@
     <Compile Include="DUTs\RESPONSE_STATE.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\PIPER_CONST.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PiperModule\IPiperModule.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -67,10 +71,6 @@
     <Compile Include="Piper\PiperSubmoduleCollection.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Piper\PIPER_CONST.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -80,10 +80,10 @@
     <Compile Include="Test\FB_Piper_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\Fixtures\Piper_EM.TcPOU">
+    <Compile Include="Test\Instances\Piper_EM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Test\Fixtures\TaskFB.TcPOU">
+    <Compile Include="Test\Instances\TaskFB.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Test\TESTPRG.TcPOU">
@@ -96,7 +96,7 @@
     <Folder Include="PiperModule" />
     <Folder Include="Test" />
     <Folder Include="Piper" />
-    <Folder Include="Test\Fixtures" />
+    <Folder Include="Test\Instances" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">
@@ -125,6 +125,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="TcUnit">
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
+      <Namespace>TcUnit</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
