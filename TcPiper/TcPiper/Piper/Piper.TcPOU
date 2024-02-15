@@ -15,10 +15,10 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
+
 UpdateSystemState();
 HandleBoolCommands();
-CallCurrentState();
-]]></ST>
+CallCurrentState();]]></ST>
     </Implementation>
     <Method Name="CallCurrentState" Id="{cc5efec1-ab06-458e-a637-15755ce9d2d9}">
       <Declaration><![CDATA[METHOD CallCurrentState : MACHINE_STATE
@@ -199,7 +199,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-IF Submodules.countSubmodules < 100 THEN
+IF Submodules.countSubmodules < MAI_NUM_PIPER_MODULES THEN
     Submodules.submodules[Submodules.countSubmodules] := subsystem;
     Submodules.countSubmodules := Submodules.countSubmodules + 1;
 END_IF]]></ST>
