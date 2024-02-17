@@ -27,15 +27,15 @@ END_VAR
 
 piper.command.Abort := TRUE;
 piper();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.ABORTING, Message := 'State should be ABORTING');
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.ABORTING, Message := 'State should be ABORTING');
 piper.NextState();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.ABORTED, Message := 'State after STARTING should be ABORTED');
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.ABORTED, Message := 'State after STARTING should be ABORTED');
 
 piper.command.Clear := TRUE;
 piper();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.CLEARING, Message := 'State should be CLEARING');
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.CLEARING, Message := 'State should be CLEARING');
 piper.NextState();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STOPPED, Message := 'State after CLEARING should be STOPPED');]]></ST>
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.STOPPED, Message := 'State after CLEARING should be STOPPED');]]></ST>
       </Implementation>
     </Method>
     <Method Name="CommandSetsState" Id="{c0302bd5-f07a-06ee-1d5c-15fc195e6380}">
@@ -53,7 +53,7 @@ TEST('SetState');
 piper.command.Reset := TRUE;
 piper();
 AssertFalse(piper.command.Reset, Message := 'Command should be cyclicly reset');
-AssertEquals_DINT(piper.PackMLState,
+AssertEquals_DINT(piper.packMLState,
     MACHINE_STATE.RESETTING,
     Message := 'Setting a valid state command and cyclic calling FUB once should change state');
 
@@ -71,7 +71,7 @@ END_VAR
 
 piper.command.Hold := TRUE;
 piper();
-AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.HOLDING, Message := 'State should be HOLDING');]]></ST>
+AssertEquals_DINT(Expected := piper.packMLState, Actual := MACHINE_STATE.HOLDING, Message := 'State should be HOLDING');]]></ST>
       </Implementation>
     </Method>
     <Method Name="Resetting" Id="{442f8c1d-3e24-0484-05f8-c450bb57964e}" FolderPath="PartialTestsForStateTransitions\">
@@ -85,7 +85,7 @@ END_VAR
 
 piper.command.Reset := TRUE;
 piper();
-AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.RESETTING, Message := 'State should be RESETTING');]]></ST>
+AssertEquals_DINT(Expected := piper.packMLState, Actual := MACHINE_STATE.RESETTING, Message := 'State should be RESETTING');]]></ST>
       </Implementation>
     </Method>
     <Method Name="StartAndExecute" Id="{1503700b-a107-092d-0dda-dabd453b3226}" FolderPath="PartialTestsForStateTransitions\">
@@ -99,7 +99,7 @@ END_VAR
 
 piper.command.Start := TRUE;
 piper();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');
 piper.NextState();
 piper();]]></ST>
       </Implementation>
@@ -115,7 +115,7 @@ END_VAR
 
 piper.command.Start := TRUE;
 piper();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');]]></ST>
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.STARTING, Message := 'State should be STARTING');]]></ST>
       </Implementation>
     </Method>
     <Method Name="StateTransitions" Id="{0bcdaa3a-ee87-022d-33ad-b2aa61c63cc5}">
@@ -136,13 +136,13 @@ END_VAR
 
 TEST('BootAndReset');
 	// Note: there is currently no abort while booting
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.BOOTING, Message := 'Initil state should be BOOTING');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.BOOTING, Message := 'Initil state should be BOOTING');
 	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STOPPED, Message := 'STOPPED state should be after BOOTING');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.STOPPED, Message := 'STOPPED state should be after BOOTING');
 	
 	Resetting(piper);
 	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 
 TEST_FINISHED();
 
@@ -153,7 +153,7 @@ TEST('StartAndAbortWhileStarting');
 	
 	Resetting(piper);
 	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 TEST_FINISHED();
 
 TEST('ResetAndAbortWhileResetting');
@@ -164,7 +164,7 @@ TEST('ResetAndAbortWhileResetting');
 	// stopped
 	Resetting(piper);
 	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 TEST_FINISHED();
 
 TEST('ExecuteAndAbortWhileExecuting');
@@ -174,7 +174,7 @@ TEST('ExecuteAndAbortWhileExecuting');
 	// stopped
 	Resetting(piper);
 	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 TEST_FINISHED();
 
 TEST('ExecuteAndStop');
@@ -186,7 +186,7 @@ TEST('ExecuteAndStop');
 	// stopped
 	Resetting(piper);
 	piper.NextState();
-	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+	AssertEquals_DINT(piper.packMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 TEST_FINISHED();
 
 //TEST('HoldAndUnhold');
@@ -202,7 +202,7 @@ TEST_FINISHED();
 //	// stopped
 //	Resetting(piper);
 //	piper.NextState();
-//	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+//	AssertEquals_DINT(piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 //TEST_FINISHED();
 
 //TEST('SuspendAndUnSuspend');
@@ -217,7 +217,7 @@ TEST_FINISHED();
 //	// stopped
 //	Resetting(piper);
 //	piper.NextState();
-//	AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
+//	AssertEquals_DINT(piper.PackMLState, MACHINE_STATE.IDLE, Message := 'Next state after RESETTING should be IDLE');
 //TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
@@ -232,7 +232,7 @@ END_VAR
 
 piper.command.Stop := TRUE;
 piper();
-AssertEquals_DINT(Piper.PackMLState, MACHINE_STATE.STOPPING, Message := 'State should be STOPPING');
+AssertEquals_DINT(piper.packMLState, MACHINE_STATE.STOPPING, Message := 'State should be STOPPING');
 ]]></ST>
       </Implementation>
     </Method>
@@ -247,7 +247,7 @@ END_VAR
 
 piper.command.Suspend := TRUE;
 piper();
-AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.SUSPENDING, Message := 'State should be SUSPENDING');]]></ST>
+AssertEquals_DINT(Expected := piper.packMLState, Actual := MACHINE_STATE.SUSPENDING, Message := 'State should be SUSPENDING');]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unholding" Id="{2edea14a-06a7-0455-011d-6b1dd451c7c5}" FolderPath="PartialTestsForStateTransitions\">
@@ -260,7 +260,7 @@ END_VAR]]></Declaration>
 
 piper.command.Unhold := TRUE;
 piper();
-AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.UNHOLDING, Message := 'State should be UNHOLDING');]]></ST>
+AssertEquals_DINT(Expected := piper.packMLState, Actual := MACHINE_STATE.UNHOLDING, Message := 'State should be UNHOLDING');]]></ST>
       </Implementation>
     </Method>
     <Method Name="Unsuspending" Id="{9f5295b8-2127-095f-05f0-00362851360a}" FolderPath="PartialTestsForStateTransitions\">
@@ -274,7 +274,7 @@ END_VAR
 
 piper.command.Unsuspend := TRUE;
 piper();
-AssertEquals_DINT(Expected := Piper.PackMLState, Actual := MACHINE_STATE.UNSUSPENDING, Message := 'State should be UNSUSPENDING');]]></ST>
+AssertEquals_DINT(Expected := piper.packMLState, Actual := MACHINE_STATE.UNSUSPENDING, Message := 'State should be UNSUSPENDING');]]></ST>
       </Implementation>
     </Method>
   </POU>
