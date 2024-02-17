@@ -6,11 +6,11 @@ VAR_INPUT
     command : PiperCommand;
 END_VAR
 VAR_OUTPUT
-    PackMLState : MACHINE_STATE;
+    packMLState : MACHINE_STATE;
 END_VAR
 VAR
-    _Substate : ULINT;
-    Submodules : PiperSubmoduleCollection;
+    _substate : ULINT;
+    submodules : PiperSubmoduleCollection;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -31,9 +31,9 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-FOR i := 0 TO Submodules.countSubmodules - 1 DO
+FOR i := 0 TO submodules.countSubmodules - 1 DO
 
-    currentModule := Submodules.submodules[i];
+    currentModule := submodules.submodules[i];
     currentModule.CallStateAsync();
 
 END_FOR]]></ST>
@@ -48,7 +48,7 @@ END_VAR
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 //Standard state transitions
-CASE PackMLState OF
+CASE packMLState OF
     MACHINE_STATE.ABORTED:
         IF command.Clear THEN
             SetState(MACHINE_STATE.CLEARING);
@@ -83,7 +83,7 @@ END_CASE
 
 //Stop state transitions
 //Can happen in all states except stop/ing and abort/ing 
-CASE PackMLState OF
+CASE packMLState OF
     MACHINE_STATE.STOPPED,
         MACHINE_STATE.STOPPING,
         MACHINE_STATE.ABORTED,
@@ -97,7 +97,7 @@ END_CASE
 
 //Abort state transitions
 //Can happen in all states except abort/ing 
-CASE PackMLState OF
+CASE packMLState OF
     MACHINE_STATE.ABORTED,
         MACHINE_STATE.ABORTING:
         ;
@@ -127,7 +127,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-CASE PackMLState OF
+CASE packMLState OF
     MACHINE_STATE.ABORTING:
         SetState(MACHINE_STATE.ABORTED);
 
@@ -176,18 +176,18 @@ END_VAR
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 packMLStateIsTransition :=
-    PackMLState = MACHINE_STATE.ABORTING OR
-    PackMLState = MACHINE_STATE.BOOTING OR
-    PackMLState = MACHINE_STATE.CLEARING OR
-    PackMLState = MACHINE_STATE.COMPLETING OR
-    PackMLState = MACHINE_STATE.EXECUTING OR
-    PackMLState = MACHINE_STATE.HOLDING OR
-    PackMLState = MACHINE_STATE.RESETTING OR
-    PackMLState = MACHINE_STATE.STARTING OR
-    PackMLState = MACHINE_STATE.STOPPING OR
-    PackMLState = MACHINE_STATE.SUSPENDING OR
-    PackMLState = MACHINE_STATE.UNHOLDING OR
-    PackMLState = MACHINE_STATE.UNSUSPENDING;]]></ST>
+    packMLState = MACHINE_STATE.ABORTING OR
+    packMLState = MACHINE_STATE.BOOTING OR
+    packMLState = MACHINE_STATE.CLEARING OR
+    packMLState = MACHINE_STATE.COMPLETING OR
+    packMLState = MACHINE_STATE.EXECUTING OR
+    packMLState = MACHINE_STATE.HOLDING OR
+    packMLState = MACHINE_STATE.RESETTING OR
+    packMLState = MACHINE_STATE.STARTING OR
+    packMLState = MACHINE_STATE.STOPPING OR
+    packMLState = MACHINE_STATE.SUSPENDING OR
+    packMLState = MACHINE_STATE.UNHOLDING OR
+    packMLState = MACHINE_STATE.UNSUSPENDING;]]></ST>
       </Implementation>
     </Method>
     <Method Name="RegisterSubmodule" Id="{8bd63e8f-6ba4-4717-aae0-399fcd4553bf}">
@@ -199,9 +199,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-IF Submodules.countSubmodules < MAI_NUM_PIPER_MODULES THEN
-    Submodules.submodules[Submodules.countSubmodules] := subsystem;
-    Submodules.countSubmodules := Submodules.countSubmodules + 1;
+IF submodules.countSubmodules < MAI_NUM_PIPER_MODULES THEN
+    submodules.submodules[submodules.countSubmodules] := subsystem;
+    submodules.countSubmodules := submodules.countSubmodules + 1;
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -217,13 +217,13 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-PackMLState := state;
+packMLState := state;
 
 Substate := 0;
 
-FOR i := 0 TO Submodules.countSubmodules - 1 DO
+FOR i := 0 TO submodules.countSubmodules - 1 DO
 
-    currentModule := Submodules.submodules[i];
+    currentModule := submodules.submodules[i];
 
     currentModule.SetState();
 
@@ -240,7 +240,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-Substate := _Substate;]]></ST>
+Substate := _substate;]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{74bf3d52-0b90-4373-b048-82b30721a2d5}">
@@ -251,7 +251,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-_Substate := Substate;]]></ST>
+_substate := Substate;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -279,9 +279,9 @@ done := 0;
 error := 0;
 
 FOR i := 0 TO MAI_NUM_PIPER_MODULES DO
-    Submodules.busyModules[i] := 0;
-    Submodules.doneModules[i] := 0;
-    Submodules.errorModules[i] := 0;
+    submodules.busyModules[i] := 0;
+    submodules.doneModules[i] := 0;
+    submodules.errorModules[i] := 0;
     //	IF NOT Submodules.submodules[i].hasContext THEN
     //TODO: 	REFUSE TO RUN AND THROW ERROR
     //			MSG: add FB_Init with THIS^.setContext(Synchronous Context);		
@@ -292,13 +292,13 @@ substateRequest := maxULINT;
 
 IF packMLStateIsTransition() THEN
 
-    FOR i := 0 TO Submodules.countSubmodules - 1 DO
-        currentModule := Submodules.submodules[i];
+    FOR i := 0 TO submodules.countSubmodules - 1 DO
+        currentModule := submodules.submodules[i];
 
         CASE currentModule.Response OF
             RESPONSE_STATE.UNDEFINED,
                 RESPONSE_STATE.BUSY:
-                Submodules.busyModules[busy] := currentModule;
+                submodules.busyModules[busy] := currentModule;
 
                 // If the module is requesting a substate, it isn't busy, it's waiting
                 IF currentModule.RequestedSubstate <> 0 THEN
@@ -320,11 +320,11 @@ IF packMLStateIsTransition() THEN
 
             RESPONSE_STATE.DONE_PENDING,
                 RESPONSE_STATE.DONE:
-                Submodules.doneModules[done] := currentModule;
+                submodules.doneModules[done] := currentModule;
                 done := done + 1;
 
             RESPONSE_STATE.ERROR:
-                Submodules.errorModules[error] := currentModule;
+                submodules.errorModules[error] := currentModule;
                 error := error + 1;
 
         END_CASE
@@ -335,7 +335,7 @@ END_IF
 //If there are errors, we go to aborting, unless we are already aborting..
 IF error > 0 THEN
 
-    IF PackMLState <> MACHINE_STATE.ABORTING THEN
+    IF packMLState <> MACHINE_STATE.ABORTING THEN
         SetState(MACHINE_STATE.ABORTING);
     END_IF
 

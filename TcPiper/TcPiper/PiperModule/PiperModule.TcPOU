@@ -3,9 +3,10 @@
   <POU Name="PiperModule" Id="{a49f2d62-e1fb-48a5-85f3-63c6ca0008b5}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT PiperModule IMPLEMENTS IPiperModule, ISequence, IStepManager
 VAR
-    i_PiperModuleInternal : PiperModuleInternal;
-    i_sequence : SequenceType;
-    _sequence : Sequencer(THIS^);
+    _piperModule : PiperModuleInternal;
+    _sequence : SequenceType;
+    _sequencer : Sequencer(THIS^);
+	
     command : PLCopenCall;
 END_VAR
 ]]></Declaration>
@@ -32,9 +33,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.requestSubstate := nextStep;
-i_PiperModuleInternal.response := RESPONSE_STATE.BUSY;
-i_PiperModuleInternal.requestNumber := i_PiperModuleInternal.requestNumber + 1;
+_piperModule.requestSubstate := nextStep;
+_piperModule.response := RESPONSE_STATE.BUSY;
+_piperModule.requestNumber := _piperModule.requestNumber + 1;
 ]]></ST>
       </Implementation>
     </Method>
@@ -52,8 +53,8 @@ i_PiperModuleInternal.requestNumber := i_PiperModuleInternal.requestNumber + 1;
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.requestSubstate := 0;
-i_PiperModuleInternal.response := RESPONSE_STATE.DONE;]]></ST>
+_piperModule.requestSubstate := 0;
+_piperModule.response := RESPONSE_STATE.DONE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="_SequenceError" Id="{d8c3afc4-de9e-411e-b9c4-728f5280910b}" FolderPath="StepManager\">
@@ -62,8 +63,8 @@ i_PiperModuleInternal.response := RESPONSE_STATE.DONE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.requestSubstate := 0;
-i_PiperModuleInternal.response := RESPONSE_STATE.ERROR;]]></ST>
+_piperModule.requestSubstate := 0;
+_piperModule.response := RESPONSE_STATE.ERROR;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Aborted" Id="{bfc1fdac-439e-4113-ad1e-f9923d22408a}" FolderPath="PLCopen\">
@@ -72,7 +73,7 @@ i_PiperModuleInternal.response := RESPONSE_STATE.ERROR;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_sequence.activeTasks.Aborted();]]></ST>
+_sequence.activeTasks.Aborted();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Aborting" Id="{f8a973b9-f9f6-410e-b5c1-d3a51e04d7ba}" FolderPath="PackML\">
@@ -80,7 +81,7 @@ i_sequence.activeTasks.Aborted();]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.aborting := TRUE;]]></ST>
+_piperModule.skipsSync.aborting := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="AbortingAsync" Id="{cec06300-8aeb-4e42-9276-4c70e9317f91}" FolderPath="PackMLAsync\">
@@ -88,7 +89,7 @@ i_PiperModuleInternal.skipsSync.aborting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.aborting := TRUE;]]></ST>
+_piperModule.skipsAsync.aborting := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Booting" Id="{8c4cd35b-8b79-4b7d-b8d1-be00bdf7a998}" FolderPath="PackML\">
@@ -97,7 +98,7 @@ i_PiperModuleInternal.skipsAsync.aborting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.booting := TRUE;]]></ST>
+_piperModule.skipsSync.booting := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="BootingAsync" Id="{9ce4a9c1-65bb-4257-8807-dd0b22b34a12}" FolderPath="PackMLAsync\">
@@ -106,7 +107,7 @@ i_PiperModuleInternal.skipsSync.booting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.booting := TRUE;
+_piperModule.skipsAsync.booting := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -121,71 +122,71 @@ END_VAR
 
 THIS^.WillCall();
 
-IF THIS^.i_PiperModuleInternal.previousSubstate <> THIS^.CurrentSubstate THEN
+IF THIS^._piperModule.previousSubstate <> THIS^.CurrentSubstate THEN
     THIS^.WillChangeSubstate();
 END_IF
 
-THIS^.i_PiperModuleInternal.previousSubstate := THIS^.CurrentSubstate;
+THIS^._piperModule.previousSubstate := THIS^.CurrentSubstate;
 
 IF Response <> RESPONSE_STATE.DONE AND RequestedSubstate <= CurrentSubstate THEN
     CASE CurrentState OF
         MACHINE_STATE.ABORTING:
-            IF NOT i_PiperModuleInternal.skipsSync.aborting THEN
+            IF NOT _piperModule.skipsSync.aborting THEN
                 THIS^.Aborting();
             END_IF
 
         MACHINE_STATE.BOOTING:
-            IF NOT i_PiperModuleInternal.skipsSync.booting THEN
+            IF NOT _piperModule.skipsSync.booting THEN
                 THIS^.Booting();
             END_IF
 
         MACHINE_STATE.CLEARING:
-            IF NOT i_PiperModuleInternal.skipsSync.clearing THEN
+            IF NOT _piperModule.skipsSync.clearing THEN
                 THIS^.Clearing();
             END_IF
 
         MACHINE_STATE.COMPLETING:
-            IF NOT i_PiperModuleInternal.skipsSync.completing THEN
+            IF NOT _piperModule.skipsSync.completing THEN
                 THIS^.COMPLETING();
             END_IF
 
         MACHINE_STATE.EXECUTING:
-            IF NOT i_PiperModuleInternal.skipsSync.executing THEN
+            IF NOT _piperModule.skipsSync.executing THEN
                 THIS^.Executing();
             END_IF
 
         MACHINE_STATE.HOLDING:
-            IF NOT i_PiperModuleInternal.skipsSync.holding THEN
+            IF NOT _piperModule.skipsSync.holding THEN
                 THIS^.Holding();
             END_IF
 
         MACHINE_STATE.RESETTING:
-            IF NOT i_PiperModuleInternal.skipsSync.resetting THEN
+            IF NOT _piperModule.skipsSync.resetting THEN
                 THIS^.Resetting();
             END_IF
 
         MACHINE_STATE.STARTING:
-            IF NOT i_PiperModuleInternal.skipsSync.starting THEN
+            IF NOT _piperModule.skipsSync.starting THEN
                 THIS^.Starting();
             END_IF
 
         MACHINE_STATE.STOPPING:
-            IF NOT i_PiperModuleInternal.skipsSync.stopping THEN
+            IF NOT _piperModule.skipsSync.stopping THEN
                 THIS^.Stopping();
             END_IF
 
         MACHINE_STATE.SUSPENDING:
-            IF NOT i_PiperModuleInternal.skipsSync.suspending THEN
+            IF NOT _piperModule.skipsSync.suspending THEN
                 THIS^.Suspending();
             END_IF
 
         MACHINE_STATE.UNHOLDING:
-            IF NOT i_PiperModuleInternal.skipsSync.unholding THEN
+            IF NOT _piperModule.skipsSync.unholding THEN
                 THIS^.Unholding();
             END_IF
 
         MACHINE_STATE.UNSUSPENDING:
-            IF NOT i_PiperModuleInternal.skipsSync.unsuspending THEN
+            IF NOT _piperModule.skipsSync.unsuspending THEN
                 THIS^.Unsuspending();
             END_IF
 
@@ -207,96 +208,96 @@ END_VAR
 
 THIS^.WillCallAsync();
 
-IF THIS^.i_PiperModuleInternal.previousSubstateAsync <> THIS^.CurrentSubstate THEN
+IF THIS^._piperModule.previousSubstateAsync <> THIS^.CurrentSubstate THEN
     THIS^.WillChangeSubstateAsync();
 END_IF
 
-THIS^.i_PiperModuleInternal.previousSubstateAsync := THIS^.CurrentSubstate;
+THIS^._piperModule.previousSubstateAsync := THIS^.CurrentSubstate;
 
 IF Response <> RESPONSE_STATE.DONE AND RequestedSubstate <= CurrentSubstate THEN
     CASE CurrentState OF
         MACHINE_STATE.ABORTING:
-            IF NOT i_PiperModuleInternal.skipsAsync.aborting THEN
+            IF NOT _piperModule.skipsAsync.aborting THEN
                 THIS^.AbortingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.aborting THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.aborting THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.BOOTING:
-            IF NOT i_PiperModuleInternal.skipsAsync.booting THEN
+            IF NOT _piperModule.skipsAsync.booting THEN
                 THIS^.BootingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.booting THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.booting THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.CLEARING:
-            IF NOT i_PiperModuleInternal.skipsAsync.clearing THEN
+            IF NOT _piperModule.skipsAsync.clearing THEN
                 THIS^.ClearingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.clearing THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.clearing THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.COMPLETING:
-            IF NOT i_PiperModuleInternal.skipsAsync.completing THEN
+            IF NOT _piperModule.skipsAsync.completing THEN
                 THIS^.CompletingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.completing THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.completing THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.EXECUTING:
-            IF NOT i_PiperModuleInternal.skipsAsync.executing THEN
+            IF NOT _piperModule.skipsAsync.executing THEN
                 THIS^.ExecutingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.executing THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.executing THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.HOLDING:
-            IF NOT i_PiperModuleInternal.skipsAsync.holding THEN
+            IF NOT _piperModule.skipsAsync.holding THEN
                 THIS^.HoldingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.holding THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.holding THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.RESETTING:
-            IF NOT i_PiperModuleInternal.skipsAsync.resetting THEN
+            IF NOT _piperModule.skipsAsync.resetting THEN
                 THIS^.ResettingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.resetting THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.resetting THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.STARTING:
-            IF NOT i_PiperModuleInternal.skipsAsync.starting THEN
+            IF NOT _piperModule.skipsAsync.starting THEN
                 THIS^.StartingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.starting THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.starting THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.STOPPING:
-            IF NOT i_PiperModuleInternal.skipsAsync.stopping THEN
+            IF NOT _piperModule.skipsAsync.stopping THEN
                 THIS^.StoppingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.stopping THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.stopping THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.SUSPENDING:
-            IF NOT i_PiperModuleInternal.skipsAsync.suspending THEN
+            IF NOT _piperModule.skipsAsync.suspending THEN
                 THIS^.SuspendingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.suspending THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.suspending THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.UNHOLDING:
-            IF NOT i_PiperModuleInternal.skipsAsync.unholding THEN
+            IF NOT _piperModule.skipsAsync.unholding THEN
                 THIS^.UnholdingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.unholding THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.unholding THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
         MACHINE_STATE.UNSUSPENDING:
-            IF NOT i_PiperModuleInternal.skipsAsync.unsuspending THEN
+            IF NOT _piperModule.skipsAsync.unsuspending THEN
                 THIS^.UnsuspendingAsync();
-            ELSIF i_PiperModuleInternal.skipsSync.unsuspending THEN
-                i_PiperModuleInternal.response := RESPONSE_STATE.DONE;
+            ELSIF _piperModule.skipsSync.unsuspending THEN
+                _piperModule.response := RESPONSE_STATE.DONE;
             END_IF
 
     END_CASE
@@ -317,12 +318,12 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-IF NOT i_sequence.statusChecked THEN
+IF NOT _sequence.statusChecked THEN
     //We cache the is abort so that we have a consistent 
     //	status for the whole state
-    i_sequence.isError := i_sequence.activeTasks.isError;
-    i_sequence.isAbort := i_sequence.activeTasks.isAbort;
-    i_sequence.isDone := i_sequence.activeTasks.isDone;
+    _sequence.isError := _sequence.activeTasks.isError;
+    _sequence.isAbort := _sequence.activeTasks.isAbort;
+    _sequence.isDone := _sequence.activeTasks.isDone;
 END_IF
 ]]></ST>
       </Implementation>
@@ -333,7 +334,7 @@ END_IF
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.clearing := TRUE;]]></ST>
+_piperModule.skipsSync.clearing := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="ClearingAsync" Id="{f3e36a82-f507-456f-b94b-64cf7681213f}" FolderPath="PackMLAsync\">
@@ -342,7 +343,7 @@ i_PiperModuleInternal.skipsSync.clearing := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.clearing := TRUE;
+_piperModule.skipsAsync.clearing := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -352,7 +353,7 @@ i_PiperModuleInternal.skipsAsync.clearing := TRUE;
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.completing := TRUE;]]></ST>
+_piperModule.skipsSync.completing := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="CompletingAsync" Id="{a25aad53-5324-4bcd-8931-defa299aa789}" FolderPath="PackMLAsync\">
@@ -361,7 +362,7 @@ i_PiperModuleInternal.skipsSync.completing := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.completing := TRUE;
+_piperModule.skipsAsync.completing := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -375,7 +376,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-CurrentState := i_PiperModuleInternal.machine.PackMLState;]]></ST>
+CurrentState := _piperModule.machine.packMLState;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -389,7 +390,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-CurrentStep := ULINT_TO_UDINT(i_PiperModuleInternal.machine.Substate);]]></ST>
+CurrentStep := ULINT_TO_UDINT(_piperModule.machine.Substate);]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -403,7 +404,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-CurrentSubstate := i_PiperModuleInternal.machine.Substate;]]></ST>
+CurrentSubstate := _piperModule.machine.Substate;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -435,7 +436,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-DoStep := _sequence.DoStep();]]></ST>
+DoStep := _sequencer.DoStep();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Errored" Id="{06792213-1d5a-46af-b439-4e2d3ae32a97}" FolderPath="PLCopen\">
@@ -447,7 +448,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_sequence.activeTasks.Errored(ID);]]></ST>
+_sequence.activeTasks.Errored(ID);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Executing" Id="{7d2b0e0c-1f31-466b-8d1a-373403d052a1}" FolderPath="PackML\">
@@ -456,7 +457,7 @@ i_sequence.activeTasks.Errored(ID);]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.executing := TRUE;]]></ST>
+_piperModule.skipsSync.executing := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="ExecutingAsync" Id="{f195c071-1809-4503-9600-76c76102562b}" FolderPath="PackMLAsync\">
@@ -465,7 +466,7 @@ i_PiperModuleInternal.skipsSync.executing := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.executing := TRUE;
+_piperModule.skipsAsync.executing := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -490,7 +491,7 @@ RegisterToMachine(machineIn);
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_sequence.activeTasks.Finished();
+_sequence.activeTasks.Finished();
 ]]></ST>
       </Implementation>
     </Method>
@@ -500,7 +501,7 @@ i_sequence.activeTasks.Finished();
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.holding := TRUE;]]></ST>
+_piperModule.skipsSync.holding := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="HoldingAsync" Id="{c029deb6-41db-4d4c-af7b-1fd6e8644624}" FolderPath="PackMLAsync\">
@@ -509,7 +510,7 @@ i_PiperModuleInternal.skipsSync.holding := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.holding := TRUE;
+_piperModule.skipsAsync.holding := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -521,7 +522,7 @@ i_PiperModuleInternal.skipsAsync.holding := TRUE;
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 CheckStatus();
-IsAbort := i_sequence.isAbort;]]></ST>
+IsAbort := _sequence.isAbort;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -533,7 +534,7 @@ IsAbort := i_sequence.isAbort;]]></ST>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 CheckStatus();
-IsDone := i_sequence.isDone;]]></ST>
+IsDone := _sequence.isDone;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -547,7 +548,7 @@ END_VAR
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 CheckStatus();
-IsError := i_sequence.isError;]]></ST>
+IsError := _sequence.isError;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -560,7 +561,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnAbort := _sequence.OnAbort(nextStep);]]></ST>
+OnAbort := _sequencer.OnAbort(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnEntry" Id="{6689b526-5baa-4f23-b571-4ec7663af97d}" FolderPath="Sequence\callbacks\">
@@ -571,7 +572,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnEntry := _sequence.OnEntry();]]></ST>
+OnEntry := _sequencer.OnEntry();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnError" Id="{3514fd98-aade-49a4-8005-f8ef205958d8}" FolderPath="Sequence\callbacks\">
@@ -583,7 +584,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnError := _sequence.OnError(nextStep);]]></ST>
+OnError := _sequencer.OnError(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExit" Id="{73e201fe-6ff5-45dc-ba48-16917ae7f7e3}" FolderPath="Sequence\callbacks\">
@@ -594,7 +595,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnExit := _sequence.OnExit();]]></ST>
+OnExit := _sequencer.OnExit();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnFailure" Id="{3f9573b7-b22b-45b2-a5b3-ac03573adb91}" FolderPath="Sequence\callbacks\">
@@ -606,7 +607,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnFailure := _sequence.OnFailure(nextStep);]]></ST>
+OnFailure := _sequencer.OnFailure(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnSuccess" Id="{2218590e-0706-443f-94cd-47156df6e0ea}" FolderPath="Sequence\callbacks\">
@@ -618,7 +619,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-OnSuccess := _sequence.OnSuccess(nextStep);]]></ST>
+OnSuccess := _sequencer.OnSuccess(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RegisterToMachine" Id="{3f378610-e9ba-4ac4-ba6e-e297be53cd18}" FolderPath="Setup\">
@@ -631,10 +632,10 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
-IF NOT i_PiperModuleInternal.registered THEN
-    i_PiperModuleInternal.registered := TRUE;
-    i_PiperModuleInternal.machine REF= machineIn;
-    i_PiperModuleInternal.machine.RegisterSubmodule(THIS^);
+IF NOT _piperModule.registered THEN
+    _piperModule.registered := TRUE;
+    _piperModule.machine REF= machineIn;
+    _piperModule.machine.RegisterSubmodule(THIS^);
 END_IF
 ]]></ST>
       </Implementation>
@@ -650,7 +651,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-RequestedSubstate := i_PiperModuleInternal.requestSubstate;]]></ST>
+RequestedSubstate := _piperModule.requestSubstate;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -664,7 +665,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-RequestNumber := i_PiperModuleInternal.requestNumber;]]></ST>
+RequestNumber := _piperModule.requestNumber;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -677,7 +678,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-RequestStep := _sequence.requestStep(nextStep);]]></ST>
+RequestStep := _sequencer.requestStep(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="RequestStepClear" Id="{e97e13d9-69d6-493d-a91f-a645bb23f6bb}" FolderPath="Sequence\StateControl\">
@@ -689,7 +690,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-RequestStepClear := _sequence.requestStepClear(nextStep);]]></ST>
+RequestStepClear := _sequencer.requestStepClear(nextStep);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Resetting" Id="{d15239fc-c709-4b5f-b06c-c65056e3acbe}" FolderPath="PackML\">
@@ -697,7 +698,7 @@ RequestStepClear := _sequence.requestStepClear(nextStep);]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.resetting := TRUE;]]></ST>
+_piperModule.skipsSync.resetting := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="ResettingAsync" Id="{f993b6c7-b4af-4377-a0d6-8a2380615fa3}" FolderPath="PackMLAsync\">
@@ -705,7 +706,7 @@ i_PiperModuleInternal.skipsSync.resetting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.resetting := TRUE;
+_piperModule.skipsAsync.resetting := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -718,7 +719,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-Response := i_PiperModuleInternal.response;]]></ST>
+Response := _piperModule.response;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -741,7 +742,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-SequenceAbort := _sequence.sequenceAbort(ErrorCode, ErrorMessage);]]></ST>
+SequenceAbort := _sequencer.sequenceAbort(ErrorCode, ErrorMessage);]]></ST>
       </Implementation>
     </Method>
     <Method Name="SequenceComplete" Id="{e7a11495-e96e-44f3-b8dd-fb20c40130d2}" FolderPath="Sequence\StateControl\">
@@ -752,7 +753,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-SequenceComplete := _sequence.sequenceComplete();]]></ST>
+SequenceComplete := _sequencer.sequenceComplete();]]></ST>
       </Implementation>
     </Method>
     <Method Name="SequenceError" Id="{6e2cc27d-5672-4397-b236-2cd116232adf}" FolderPath="Sequence\StateControl\">
@@ -765,7 +766,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-SequenceError := _sequence.sequenceError(ErrorCode, ErrorMessage);]]></ST>
+SequenceError := _sequencer.sequenceError(ErrorCode, ErrorMessage);]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetContext" Id="{f6595b8f-ae99-4b2e-85fc-1c2a518ea4e4}" FolderPath="Setup\">
@@ -776,7 +777,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
-i_PiperModuleInternal.context := context;
+_piperModule.context := context;
 context.RegisterPlugin(THIS^);
 ]]></ST>
       </Implementation>
@@ -789,9 +790,9 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.requestSubstate := 0;
-i_PiperModuleInternal.response := RESPONSE_STATE.UNDEFINED;
-_sequence.startSequence();]]></ST>
+_piperModule.requestSubstate := 0;
+_piperModule.response := RESPONSE_STATE.UNDEFINED;
+_sequencer.startSequence();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Start" Id="{0fbe109f-325f-4002-b69e-be08f70d2754}" FolderPath="PLCopen\">
@@ -803,7 +804,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-IF i_sequence.activeTasks.Start(Command) = 0 THEN
+IF _sequence.activeTasks.Start(Command) = 0 THEN
     //TODO: All out of commands.. Throw an error
     SequenceError(10000, 'Too Many Commands in 1 step');
     Start := FALSE;
@@ -818,7 +819,7 @@ END_IF
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.starting := TRUE;]]></ST>
+_piperModule.skipsSync.starting := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="StartingAsync" Id="{f0a9676d-2362-4f42-9b4a-07835a470b0e}" FolderPath="PackMLAsync\">
@@ -826,7 +827,7 @@ i_PiperModuleInternal.skipsSync.starting := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.starting := TRUE;
+_piperModule.skipsAsync.starting := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -847,7 +848,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.response := RESPONSE_STATE.DONE_PENDING;]]></ST>
+_piperModule.response := RESPONSE_STATE.DONE_PENDING;]]></ST>
       </Implementation>
     </Method>
     <Method Name="StateErrored" Id="{3ac147a4-b6ee-453f-bca1-363fc1d7eaed}" FolderPath="Handshake\">
@@ -858,7 +859,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.response := RESPONSE_STATE.ERROR;]]></ST>
+_piperModule.response := RESPONSE_STATE.ERROR;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Stopping" Id="{301f156c-360f-470c-88cd-689b56d4fe1f}" FolderPath="PackML\">
@@ -867,7 +868,7 @@ i_PiperModuleInternal.response := RESPONSE_STATE.ERROR;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.stopping := TRUE;]]></ST>
+_piperModule.skipsSync.stopping := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="StoppingAsync" Id="{ecb23d71-1a43-461c-aa40-2add24e1194d}" FolderPath="PackMLAsync\">
@@ -876,7 +877,7 @@ i_PiperModuleInternal.skipsSync.stopping := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.stopping := TRUE;
+_piperModule.skipsAsync.stopping := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -886,7 +887,7 @@ i_PiperModuleInternal.skipsAsync.stopping := TRUE;
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.suspending := TRUE;]]></ST>
+_piperModule.skipsSync.suspending := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="SuspendingAsync" Id="{f3583032-054c-4d43-8d68-39f2c7f4866f}" FolderPath="PackMLAsync\">
@@ -895,7 +896,7 @@ i_PiperModuleInternal.skipsSync.suspending := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.suspending := TRUE;
+_piperModule.skipsAsync.suspending := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -905,7 +906,7 @@ i_PiperModuleInternal.skipsAsync.suspending := TRUE;
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.response := RESPONSE_STATE.NO_IMPL;]]></ST>
+_piperModule.response := RESPONSE_STATE.NO_IMPL;]]></ST>
       </Implementation>
     </Method>
     <Method Name="UndefinedAsync" Id="{df63348c-7f98-4cdb-8860-51cf22a0da80}" FolderPath="PackMLAsync\">
@@ -923,7 +924,7 @@ i_PiperModuleInternal.response := RESPONSE_STATE.NO_IMPL;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.unholding := TRUE;]]></ST>
+_piperModule.skipsSync.unholding := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="UnholdingAsync" Id="{d6a9e8cc-d336-42ad-8812-a767d9f87070}" FolderPath="PackMLAsync\">
@@ -932,7 +933,7 @@ i_PiperModuleInternal.skipsSync.unholding := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.unholding := TRUE;
+_piperModule.skipsAsync.unholding := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -942,7 +943,7 @@ i_PiperModuleInternal.skipsAsync.unholding := TRUE;
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsSync.unsuspending := TRUE;]]></ST>
+_piperModule.skipsSync.unsuspending := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="UnsuspendingAsync" Id="{b8341822-21e7-482e-b82c-93c76e5c31dc}" FolderPath="PackMLAsync\">
@@ -951,7 +952,7 @@ i_PiperModuleInternal.skipsSync.unsuspending := TRUE;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_PiperModuleInternal.skipsAsync.unsuspending := TRUE;
+_piperModule.skipsAsync.unsuspending := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
