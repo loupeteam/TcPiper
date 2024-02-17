@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT PiperModule IMPLEMENTS IPiperModule, ISequence, IStepManager
 VAR
     _piperModule : PiperModuleInternal;
-    i_sequence : SequenceType;
+    _sequence : SequenceType;
     _sequencer : Sequencer(THIS^);
     command : PLCopenCall;
 END_VAR
@@ -72,7 +72,7 @@ _piperModule.response := RESPONSE_STATE.ERROR;]]></ST>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_sequence.activeTasks.Aborted();]]></ST>
+_sequence.activeTasks.Aborted();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Aborting" Id="{f8a973b9-f9f6-410e-b5c1-d3a51e04d7ba}" FolderPath="PackML\">
@@ -317,12 +317,12 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-IF NOT i_sequence.statusChecked THEN
+IF NOT _sequence.statusChecked THEN
     //We cache the is abort so that we have a consistent 
     //	status for the whole state
-    i_sequence.isError := i_sequence.activeTasks.isError;
-    i_sequence.isAbort := i_sequence.activeTasks.isAbort;
-    i_sequence.isDone := i_sequence.activeTasks.isDone;
+    _sequence.isError := _sequence.activeTasks.isError;
+    _sequence.isAbort := _sequence.activeTasks.isAbort;
+    _sequence.isDone := _sequence.activeTasks.isDone;
 END_IF
 ]]></ST>
       </Implementation>
@@ -447,7 +447,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_sequence.activeTasks.Errored(ID);]]></ST>
+_sequence.activeTasks.Errored(ID);]]></ST>
       </Implementation>
     </Method>
     <Method Name="Executing" Id="{7d2b0e0c-1f31-466b-8d1a-373403d052a1}" FolderPath="PackML\">
@@ -490,7 +490,7 @@ RegisterToMachine(machineIn);
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-i_sequence.activeTasks.Finished();
+_sequence.activeTasks.Finished();
 ]]></ST>
       </Implementation>
     </Method>
@@ -521,7 +521,7 @@ _piperModule.skipsAsync.holding := TRUE;
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 CheckStatus();
-IsAbort := i_sequence.isAbort;]]></ST>
+IsAbort := _sequence.isAbort;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -533,7 +533,7 @@ IsAbort := i_sequence.isAbort;]]></ST>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 CheckStatus();
-IsDone := i_sequence.isDone;]]></ST>
+IsDone := _sequence.isDone;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -547,7 +547,7 @@ END_VAR
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
 CheckStatus();
-IsError := i_sequence.isError;]]></ST>
+IsError := _sequence.isError;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -803,7 +803,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-IF i_sequence.activeTasks.Start(Command) = 0 THEN
+IF _sequence.activeTasks.Start(Command) = 0 THEN
     //TODO: All out of commands.. Throw an error
     SequenceError(10000, 'Too Many Commands in 1 step');
     Start := FALSE;
