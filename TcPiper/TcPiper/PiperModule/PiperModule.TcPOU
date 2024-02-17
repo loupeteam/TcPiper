@@ -6,6 +6,7 @@ VAR
     _piperModule : PiperModuleInternal;
     _sequence : SequenceType;
     _sequencer : Sequencer(THIS^);
+	
     command : PLCopenCall;
 END_VAR
 ]]></Declaration>
@@ -375,7 +376,7 @@ END_VAR
         <Implementation>
           <ST><![CDATA[// Copyright (c) 2024 Loupe (https://loupe.team), provided under the MIT License.
 
-CurrentState := _piperModule.machine.PackMLState;]]></ST>
+CurrentState := _piperModule.machine.packMLState;]]></ST>
         </Implementation>
       </Get>
     </Property>
