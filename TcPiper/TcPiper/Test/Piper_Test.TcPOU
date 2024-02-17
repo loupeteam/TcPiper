@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Piper_Test" Id="{68fc7220-a76f-05fc-0e18-f4d46c3c0059}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_Piper_Test EXTENDS FB_TestSuite
+  <POU Name="Piper_Test" Id="{68fc7220-a76f-05fc-0e18-f4d46c3c0059}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Piper_Test EXTENDS FB_TestSuite
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
